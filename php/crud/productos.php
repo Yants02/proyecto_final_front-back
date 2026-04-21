@@ -60,6 +60,44 @@ $resultado = mysqli_query($conn, $query);
 
             <hr>
 
+            <article id="formulario-baja">
+                <h2>Eliminar Producto</h2>
+                <form action="eliminar_producto.php" method="POST" class="formulario">
+                    <div class="campo">
+                        <label for="id">Id producto:</label>
+                        <input type="number" name="id" id="id" placeholder="Ej: 23" required>
+                    </div>
+
+                    <button type="submit" class="btn-eliminar">Eliminar Producto</button>
+                </form>
+            </article>
+
+            <hr>
+
+            <article id="formulario-editar">
+                <h2>Editar Producto</h2>
+                <form action="actualizar_producto.php" method="post" class="formulario">
+                    <div class="campo">
+                        <label for="id">Id producto:</label>
+                        <input type="number" name="id" id="id" placeholder="Ej:23" required>
+                    </div>
+                    <div class="campo">
+                        <label for="nuevo-nombre">Nuevo Nombre:</label>
+                        <input type="text" name="nuevo-nombre" id="nuevo-nombre" placeholder="Chocolate">
+                    </div>
+                    <div class="campo">
+                        <label for="nuevo-precio">Id producto:</label>
+                        <input type="number" name="nuevo-precio" id="nuevo-precio" placeholder="0.00">
+                    </div>
+                    <div class="campo">
+                        <label for="nuevo-stock">Id producto:</label>
+                        <input type="number" name="nuevo-stock" id="nuevo-stock" placeholder="Cantidad disponible">
+                    </div>
+
+                    <button type="submit" class="btn-guardar">Actualizar Producto</button>
+                </form>
+            </article>
+
             <article id="tabla-listado">
                 <h2>Inventario Actual</h2>
                 <table class="tabla-datos">
