@@ -2,51 +2,47 @@
     include("../conexion.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $id = mysqli_real_escape_string($conn, $POST['id']);
-
-        // array para que solamente se modifique el campo con datos nuevos
+        $id = $_POST['id'];
         $camposAActualizar = array();
-        // Si los campos no estan vacios se agregan al array para actualizarse
-        
+        $valores = array();
+
+        //Construcción dinámica con marcadores
         if (!empty($_POST['nuevo-nombre'])){
-            $nombre = mysqli_real_escape_string($conn, $POST['nuevo-nombre']);
-            $camposAActualizar[] = "nombre = '$nombre'";
+            $camposAActualizar[] = "nombre = ?";
+            $valores[] = $_POST['nuevo-nombre'];
         }
 
         if (!empty($_POST['nuevo-precio'])){
-            $precio = mysqli_real_escape_string($conn, $POST['nuevo-precio']);
-            $camposAActualizar[] = "precio_venta = '$precio'";
+            $camposAActualizar[] = "precio_venta = ?";
+            $valores[] = $_POST['nuevo-precio'];
         }
 
         if (!empty($_POST['nuevo-stock'])){
-            $stock = mysqli_real_escape_string($conn, $POST['nuevo-stock']);
-            $camposAActualizar[] = "stock = '$stock'";
+            $camposAActualizar[] = "stock = ?";
+            $valores[] = $_POST['nuevo-stock'];
         }
 
         if (count($camposAActualizar) > 0) {
-            // implode() => agrupa los elementos de un array en un string usando un separador ",". 
-            // Evita errores de sintaxis en la query
-            $datos = implode(", ", $camposAActualizar);
+            try {
+                //Unimos los campos: nombre = ?, stock = ?
+                $datos = implode(", ", $camposAActualizar);
 
-            $sql = "UPDATE productos SET $datos WHERE id = '$id';";
+                $sql = "UPDATE productos SET $datos WHERE id = ?";
+                $stmt = $conn->prepare($sql);
+                $valores[] = $id;
+                $stmt->execute($valores);
 
-            if (mysqli_query($conn, $sql)) {
-                if (mysqli_affected_rows($conn) > 0) {
-                    header("Location: productos.php?mensaje=actualizado");
-                } else {
-                    header("Location: productos.php?mensaje=sin_cambios");
-                }
+                // En PDO, rowCount() nos dice si se cambió algo
+                // Usamos >= 0 porque si mandan los mismos datos, no cuenta como error
+                header("Location: productos.php?mensaje=actualizado");
                 exit();
+
+            } catch (PDOException $e) {
+                echo "Error al actualizar: " . $e->getMessage();
             }
-            else {
-                echo "Error al actualizar: " . mysqli_error($conn);
-            }
-        }
-        // si no se envia ningun campo a actualizar
-        else {
+        } else {
             header("Location: productos.php?mensaje=no_hay_datos");
             exit();
         } 
     }
-
 ?>

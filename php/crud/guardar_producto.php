@@ -2,19 +2,25 @@
 include '../conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = mysqli_real_escape_string($conn, $_POST['nombre']);
+    $nombre = $_POST['nombre'];
     $precio = $_POST['precio_venta'];
-    $stock = $_POST['stock'];
+    $stock  = $_POST['stock'];
 
-    $sql = "INSERT INTO productos (nombre, precio_venta, stock) 
-            VALUES ('$nombre', '$precio', '$stock')";
-
-    if (mysqli_query($conn, $sql)) {
+    try {
+        $sql = "INSERT INTO productos (nombre, precio_venta, stock) 
+                VALUES (:nombre, :precio, :stock)";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            'nombre' => $nombre,
+            'precio' => $precio,
+            'stock'  => $stock
+        ]);
         header("Location: productos.php?mensaje=registrado");
-    } else {
-        echo "Error al guardar: " . mysqli_error($conn);
+        exit();
+
+    } catch (PDOException $e) {
+        echo "Error al guardar el producto: " . $e->getMessage();
     }
 }
-
-mysqli_close($conn);
 ?>

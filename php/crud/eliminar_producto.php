@@ -1,21 +1,25 @@
 <?php 
+
     include("../conexion.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nombre = mysqli_real_escape_string($conn, $_POST['id']);
+        $id = $_POST['id'];
 
-        $sql = "DELETE FROM productos WHERE id = '$id';";
+        try {
+            $sql = "DELETE FROM productos WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute(['id' => $id]);
 
-        if (mysqli_query($conn, $sql)) {
-            if (mysqli_affected_rows($conn) > 0) {
+            if ($stmt->rowCount() > 0) {
                 header("Location: productos.php?mensaje=eliminado");
-            }
-            else {
+            } else {
                 header("Location: productos.php?mensaje=error_id");
             }
             exit();
-        } else {
-            echo "Error: " . mysqli_error($conn);
+
+        } catch (PDOException $e) {
+            // Si hay un error de base de datos cae aca
+            echo "Error crítico: " . $e->getMessage();
         }
     }
 ?>

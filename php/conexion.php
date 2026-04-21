@@ -1,14 +1,24 @@
 <?php
-    $host = "localhost";
-    $user = "root";
-    $pass = "";
-    $db   = "sistema_gestion";
-    $puerto = 3306;
-    // $puerto = 3307; // El 3307 lo usa Yotti. Si de casualidad lo dejo activado comenten la linea 7 y descomenten el 3306
+$host = "localhost";
+$db   = "sistema_gestion";
+$user = "root";
+$pass = "";
+$port = 3306; // O 3307 según lo que necesite Yotti
 
-    $conn = new mysqli($host, $user, $pass, $db, $puerto);
+try {
+    $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8mb4";
+    
+    $opciones = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Activa el try-catch para errores SQL
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Devuelve los datos en arrays limpios
+        PDO::ATTR_EMULATE_PREPARES   => false,                  // Seguridad contra inyección SQL
+    ];
 
-    if($conn->connect_errno){
-        die("Fallo la conexión: " . $conn->connect_error);
-    }
+    // Creamos la conexión
+    $conn = new PDO($dsn, $user, $pass, $opciones);
+
+} catch (PDOException $e) {
+    // Si algo falla, el programa salta directo aquí
+    die("Error crítico de conexión: " . $e->getMessage());
+}
 ?>

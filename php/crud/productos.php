@@ -1,7 +1,12 @@
 <?php
 include '../conexion.php';
-$query = "SELECT * FROM productos ORDER BY id DESC";
-$resultado = mysqli_query($conn, $query);
+
+try {
+    $query = "SELECT * FROM productos ORDER BY id DESC";
+    $resultado = $conn->query($query);
+} catch (PDOException $e) {
+    echo "Error al consultar productos: " . $e->getMessage();
+}
 ?>
 
 <!DOCTYPE html>
@@ -86,11 +91,11 @@ $resultado = mysqli_query($conn, $query);
                         <input type="text" name="nuevo-nombre" id="nuevo-nombre" placeholder="Chocolate">
                     </div>
                     <div class="campo">
-                        <label for="nuevo-precio">Id producto:</label>
+                        <label for="nuevo-precio">precio producto:</label>
                         <input type="number" name="nuevo-precio" id="nuevo-precio" placeholder="0.00">
                     </div>
                     <div class="campo">
-                        <label for="nuevo-stock">Id producto:</label>
+                        <label for="nuevo-stock">Stock producto:</label>
                         <input type="number" name="nuevo-stock" id="nuevo-stock" placeholder="Cantidad disponible">
                     </div>
 
@@ -111,9 +116,7 @@ $resultado = mysqli_query($conn, $query);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
-                        while($row = mysqli_fetch_array($resultado)): 
-                        ?>
+                        <?php while($row = $resultado->fetch()): ?>
                         <tr>
                             <td><?php echo $row['id']; ?></td>
                             <td><?php echo $row['nombre']; ?></td>
