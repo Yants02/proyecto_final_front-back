@@ -16,7 +16,7 @@ session_start();
         <ul class="nav-links">
             <li><a href="index.php">Inicio</a></li>
             <li><a href="php/crud/productos.php">Productos</a></li>
-            <li><a href="#">Proveedores</a></li>
+            <li><a href="php/crud/proveedores.php">Proveedores</a></li>
             <li><a href="#">Clientes</a></li>
             <?php if(isset($_SESSION['usuario'])): ?>
                 <li><a href="php/logout.php">Cerrar Sesión</a></li>
