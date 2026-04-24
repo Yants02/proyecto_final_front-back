@@ -17,7 +17,7 @@ session_start();
             <li><a href="index.php">Inicio</a></li>
             <li><a href="php/crud/productos.php">Productos</a></li>
             <li><a href="php/crud/proveedores.php">Proveedores</a></li>
-            <li><a href="#">Clientes</a></li>
+            <li><a href="php/crud/clientes.php">Clientes</a></li>
             <?php if(isset($_SESSION['usuario'])): ?>
                 <li><a href="php/logout.php">Cerrar Sesión</a></li>
             <?php endif; ?>
