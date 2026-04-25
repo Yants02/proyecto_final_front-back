@@ -99,19 +99,40 @@ try {
                             <th>DNI</th>
                             <th>Nombre</th>
                             <th>Email</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
+                    <?php
+                    $id_a_editar = isset($_GET['editar_id']) ? $_GET['editar_id'] : null;
+                    ?>
+
                     <tbody>
                         <?php while ($row = $resultado->fetch()): ?>
                             <tr>
-                                <td><?php echo $row['id']; ?></td>
-                                <td><?php echo $row['dni']; ?></td>
-                                <td><?php echo $row['nombre']; ?></td>
-                                <td><?php echo $row['email']; ?></td>
-                                <td>
-                                    <button class="btn-editar">Editar</button>
-                                    <button class="btn-borrar">X</button>
-                                </td>
+                                <?php if ($id_a_editar == $row['id']): ?>
+                                    <form action="actualizar_cli.php" method="POST">
+                                        <td><?php echo $row['id']; ?> <input type="hidden" name="id" value="<?php echo $row['id']; ?>"></td>
+                                        <td><input type="number" name="nuevo-dni" value="<?php echo $row['dni']; ?>"></td>
+                                        <td><input type="text" name="nuevo-nombre" value="<?php echo $row['nombre']; ?>"></td>
+                                        <td><input type="email" name="nuevo-email" value="<?php echo $row['email']; ?>"></td>
+                                        <td>
+                                            <button type="submit" class="btn-guardar">Guardar</button>
+                                            <a href="clientes.php" class="btn-cancelar">Cancelar</a>
+                                        </td>
+                                    </form>
+                                <?php else: ?>
+                                    <td><?php echo $row['id']; ?></td>
+                                    <td><?php echo $row['dni']; ?></td>
+                                    <td><?php echo $row['nombre']; ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <td>
+                                        <a href="clientes.php?editar_id=<?php echo $row['id']; ?>" class="btn-editar">Editar</a>
+                                        <form action="eliminar_cli.php" method="POST" style="display:inline;">
+                                            <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                            <button type="submit" class="btn-borrar">X</button>
+                                        </form>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
