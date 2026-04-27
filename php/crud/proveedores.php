@@ -138,7 +138,7 @@ try {
                                     </form>
                                 <?php else: ?>
                                     <td><?php echo $row['id']; ?></td>
-                                    <td><?php echo $row['nombre']; ?></td>
+                                    <td><?php echo $row['nombre']; ?></td> 
                                     <td><?php echo $row['telefono']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['direccion']; ?></td>

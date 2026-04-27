@@ -15,7 +15,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Productos - Sistema IFTS 4</title>
+    <title>Gestión de Clientes - Sistema IFTS 4</title>
     <link rel="stylesheet" href="../../css/estilos.css">
 </head>
 
