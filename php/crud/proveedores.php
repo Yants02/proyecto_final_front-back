@@ -60,52 +60,6 @@ try {
 
             <hr>
 
-            <article id="formulario-baja">
-                <h2>Eliminar Proveedor</h2>
-                <form action="eliminar_prov.php" method="POST" class="formulario">
-                    <div class="campo">
-                        <label for="id">Id proveedor:</label>
-                        <input type="number" name="id" id="id" placeholder="Ej: 23" required>
-                    </div>
-
-                    <button type="submit" class="btn-eliminar">Eliminar Proveedor</button>
-                </form>
-            </article>
-
-            <hr>
-
-            <article id="formulario-editar">
-                <h2>Editar Producto</h2>
-                <form action="actualizar_prov.php" method="post" class="formulario">
-                    <div class="campo">
-                        <label for="id">Id proveedor:</label>
-                        <input type="number" name="id" id="id" placeholder="Ej:23" required>
-                    </div>
-
-                    <div class="campo">
-                        <label>Nombre del Proveedor:</label>
-                        <input type="text" name="nuevo-nombre" placeholder="Ej: Empresa sa" required>
-                    </div>
-
-                    <div class="campo">
-                        <label>Teléfono del Proveedor:</label>
-                        <input type="number" name="nuevo-telefono">
-                    </div>
-
-                    <div class="campo">
-                        <label>Email del Proveedor:</label>
-                        <input type="email" name="nuevo-email" placeholder="mail@mail.com" required>
-                    </div>
-
-                    <div class="campo">
-                        <label>Dirección del Proveedor:</label>
-                        <input type="text" name="nuevo-direccion" placeholder="Calle 1234" required>
-                    </div>
-
-                    <button type="submit" class="btn-guardar">Actualizar Proveedor</button>
-                </form>
-            </article>
-
             <article id="tabla-listado">
                 <h2>Proveedores Actuales</h2>
                 <table class="tabla-datos">

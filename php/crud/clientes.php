@@ -53,43 +53,6 @@ try {
 
             <hr>
 
-            <article id="formulario-baja">
-                <h2>Eliminar Cliente</h2>
-                <form action="eliminar_cli.php" method="POST" class="formulario">
-                    <div class="campo">
-                        <label for="id">Id cliente:</label>
-                        <input type="number" name="id" id="id" placeholder="Ej: 23" required>
-                    </div>
-
-                    <button type="submit" class="btn-eliminar">Eliminar Cliente</button>
-                </form>
-            </article>
-
-            <hr>
-
-            <article id="formulario-editar">
-                <h2>Editar Cliente</h2>
-                <form action="actualizar_cli.php" method="post" class="formulario">
-                    <div class="campo">
-                        <label for="id">Id cliente:</label>
-                        <input type="number" name="id" id="id" placeholder="Ej:23" required>
-                    </div>
-                    <div class="campo">
-                        <label>DNI del Cliente:</label>
-                        <input type="number" name="nuevo-dni" required>
-                    </div>
-                    <div class="campo">
-                        <label>Nombre del cliente:</label>
-                        <input type="text" name="nuevo-nombre" placeholder="Nombre y apellido" required>
-                    </div>
-                    <div class="campo">
-                        <label>Email del Cliente:</label>
-                        <input type="email" name="nuevo-email" placeholder="mail@mail.com" required>
-                    </div>
-                    <button type="submit" class="btn-guardar">Actualizar Cliente</button>
-                </form>
-            </article>
-
             <article id="tabla-listado">
                 <h2>Clientes Actuales</h2>
                 <table class="tabla-datos">
