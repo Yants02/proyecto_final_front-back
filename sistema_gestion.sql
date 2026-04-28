@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-04-2026 a las 21:06:02
+-- Tiempo de generación: 28-04-2026 a las 09:07:50
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,7 +39,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `dni`, `nombre`, `email`) VALUES
-(10, 32098677, 'Jesús Ignaciok', 'jesusgw@gmail.com');
+(11, 45654777, 'Jesús Ignacio', 'jesusgarcxx@gmail.com'),
+(12, 123657880, 'Jesús Ignacio García', 'maixl@gmacil.comm');
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,23 @@ INSERT INTO `compras` (`id`, `id_proveedor`, `nombre_proveedor`, `fecha`, `total
 (3, NULL, 'arcor2', '2026-04-27 03:17:29', 0.00),
 (4, 3, 'coca cola', '2026-04-27 03:26:28', 0.00),
 (5, 3, 'coca cola', '2026-04-27 03:31:56', 0.00),
-(6, 3, 'coca cola', '2026-04-27 03:31:59', 0.00);
+(6, 3, 'coca cola', '2026-04-27 03:31:59', 0.00),
+(7, 3, 'coca colax', '2026-04-28 04:01:15', 0.00);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_compras`
+--
+
+CREATE TABLE `detalle_compras` (
+  `id` int(11) NOT NULL,
+  `id_compra` int(11) NOT NULL,
+  `id_producto` int(11) DEFAULT NULL,
+  `nombre_producto` varchar(100) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio_costo` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -85,7 +102,8 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio_venta`, `stock`) VALUES
-(9, 'coca cola', 2500.00, 100);
+(9, 'coca cola', 2500.00, 100),
+(10, 'chocolate', 2000.00, 3000);
 
 -- --------------------------------------------------------
 
@@ -107,7 +125,8 @@ CREATE TABLE `proveedores` (
 
 INSERT INTO `proveedores` (`id`, `nombre`, `telefono`, `email`, `direccion`) VALUES
 (3, 'coca colax', '1122334400', 'coca2@gmail.com', 'calle 555'),
-(5, 'manaos', '2255778899', 'man@gmail.com', 'calle 1234');
+(5, 'manaos', '2255778899', 'man@gmail.com', 'calle 1234'),
+(6, 'arcor', '1144778899', 'arcor@gmail.com', 'cale 7777');
 
 -- --------------------------------------------------------
 
@@ -152,6 +171,14 @@ ALTER TABLE `compras`
   ADD KEY `id_proveedor` (`id_proveedor`);
 
 --
+-- Indices de la tabla `detalle_compras`
+--
+ALTER TABLE `detalle_compras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_compra` (`id_compra`),
+  ADD KEY `id_producto` (`id_producto`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -178,25 +205,31 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_compras`
+--
+ALTER TABLE `detalle_compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -213,6 +246,13 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `compras`
   ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`) ON DELETE SET NULL;
+
+--
+-- Filtros para la tabla `detalle_compras`
+--
+ALTER TABLE `detalle_compras`
+  ADD CONSTRAINT `detalle_compras_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compras` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `detalle_compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
