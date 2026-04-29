@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="css/estilos_onepage.css">
+    <title>Onepage</title>
 </head>
 
 <body>
-    <header>
+    <header class="header">
         <a href="index.php" class="logo">
             <img src="img/icono-tienda.svg" alt="KioskoManager">
             <span class="logo-text">Kiosko Manager</span>
@@ -19,16 +20,16 @@
                 <li><a href="#">Funciones</a></li>
                 <li><a href="#">Precios</a></li>
                 <li><a href="#">Contacto</a></li>
+                <a href="#" id="btn-login">Iniciar Sesión</a>
             </ul>
         </nav>
-        <a href="#">Iniciar sesión</a>
     </header>
     <main>
         <section id="inicio">
             <article>
-                <h1>GESTIONÁ TU NEGOCIO <span>SIN VUELTAS</span></h1>
-                <p>Control de stock, precios, proveedores y mucho más <span>desde tu celular</span></p>
-                <a href="">Ingresar al panel</a>
+                <h1>GESTIONÁ TU NEGOCIO <br><span class="h1-color">SIN VUELTAS</span></h1>
+                <p class="title-desc">Control de stock, precios, proveedores y mucho más <span>desde tu celular</span></p>
+                <a href="#" class="btn-ir-a-dashboard">Ingresar al panel</a>
             </article>
             <figure>
                 <img src="" alt="Local">
@@ -105,7 +106,7 @@
                         <header>
                             <img src="img/stock.svg">
                             <h3>Pro</h3>
-                            <p>$12.990 <span>/mes</span></p>
+                            <p class="price">Próximamente</p>
                         </header>
                         <p class="target">Para negocios en crecimiento</p>
                         <ul class="benefits">
@@ -117,7 +118,7 @@
                             <li>Soporte prioritario</li>
                         </ul>
                         <footer>
-                            <a href="#">Próximamente</a>
+                            <a href="#" class="btn-comenzar-plan">Próximamente</a>
                         </footer>
                     </article>
                 </li>
@@ -127,7 +128,7 @@
                             <span>Más Popular</span>
                             <img src="img/stock.svg">
                             <h3>Lite</h3>
-                            <p>GRATIS</p>
+                            <p class="price">GRATIS</p>
                         </header>
                         <p class="target">Para empezar</p>
                         <ul class="benefits">
@@ -137,7 +138,7 @@
                             <li>Reportes básicos</li>
                         </ul>
                         <footer>
-                            <a href="#">Comenzar Gratis</a>
+                            <a href="#" class="btn-comenzar-plan">Comenzar Gratis</a>
                         </footer>
                     </article>
                 </li>
@@ -146,7 +147,7 @@
                         <header>
                             <img src="img/crown.svg">
                             <h3>Elite</h3>
-                            <p>$24.990<span>/mes</span></p>
+                            <p class="price">Próximamente</p>
                         </header>
                         <p class="target">Para máximo rendimiento</p>
                         <ul class="benefits">
@@ -158,7 +159,7 @@
                             <li>Capacitación personalizada</li>
                         </ul>
                         <footer>
-                            <a href="">Próximamente</a>
+                            <a href="" class="btn-comenzar-plan plan-elite">Próximamente</a>
                         </footer>
                     </article>
                 </li>
@@ -169,7 +170,7 @@
             <h2>Casos de éxito</h2>
         </section>
 
-        <footer>
+        <footer class="footer">
             <section id="empresa">
                 <h3>Empresa</h3>
                 <nav>

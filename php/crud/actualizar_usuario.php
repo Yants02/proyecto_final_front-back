@@ -29,7 +29,7 @@
 
         if (count($camposAActualizar) > 0) {
             try {
-                //Unimos los campos: nombre = ?, stock = ?
+                //Unimos los campos: 
                 $datos = implode(", ", $camposAActualizar);
 
                 $sql = "UPDATE usuarios SET $datos WHERE id = ?";

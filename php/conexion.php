@@ -3,7 +3,7 @@ $host = "localhost";
 $db   = "sistema_gestion";
 $user = "root";
 $pass = "";
-$port = 3306; // O 3307 según lo que necesite Yotti
+$port = 3307; // O 3307 según lo que necesite Yotti
 
 try {
     $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8mb4";
@@ -18,7 +18,7 @@ try {
     $conn = new PDO($dsn, $user, $pass, $opciones);
 
 } catch (PDOException $e) {
-    // Si algo falla, el programa salta directo aquí
+    // Si algo falla, el programa salta directo aca
     die("Error crítico de conexión: " . $e->getMessage());
 }
 ?>

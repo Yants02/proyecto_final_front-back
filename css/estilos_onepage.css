@@ -1,0 +1,245 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #03081A;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 130px;
+    background-color: #0B1327;
+}
+
+.header a {
+    font-size: 17px;
+    gap: 30px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+
+.logo img { width: 40px; }
+
+.logo-text {
+    font-weight: bold;
+    font-size: 18px;
+    color: #ededed;
+}
+
+
+nav ul {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ededed;
+    font-weight: 500;
+}
+
+#btn-login {
+    text-decoration: none;
+    padding: 8px 20px; /*8px -> eje y | 15px -> eje x */
+   
+    background-color: #155DFC;
+    color: #ededed;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+
+
+main {
+    background-color: #03081A;
+    margin: 0 3%;
+    padding: 40px 20px;
+    color: #ededed;
+}
+
+
+#inicio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 80px;
+    gap: 40px;
+}
+
+#inicio article {
+    flex: 1 /* flex: 1 para que ocupe el mismo espacio que el figure*/
+}
+
+#inicio h1 {
+    font-size: 48px;
+    color: #ededed;
+    line-height: 1.2;
+}
+.h1-color {
+    color: #50A2FF;
+}
+
+#inicio .title-desc {
+    font-size: 18px;
+    margin: 20px 0;
+    color: #CAD5E2;
+}
+
+#inicio .btn-ir-a-dashboard {
+    display: inline-block;
+    padding: 20px 40px; /*12px -> eje y | 20px -> eje x */
+    background-color: #155DFC;
+    color: #ededed;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#inicio figure {
+    flex: 1; /* flex: 1 para que ocupe el mismo espacio que el article*/
+}
+
+#inicio img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+#funciones {
+    padding: 80px;
+}
+
+/* Contenedor de las cards */
+#funciones ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    align-items: stretch; /* Para que todas las cards tengan el mismo tamano */
+    list-style: none;
+}
+
+#funciones li {
+    display: flex;
+}
+
+/* Card */
+#funciones li article {
+    background-color: #0F182C;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #CAD5E2;
+}
+
+#funciones article header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* height: 100%; */
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+#funciones img {width: 40px;}
+
+#funciones h2 {
+    font-size: 18px;
+    color: #ededed;
+}
+
+#funciones p {
+    color: #90A1B9;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#precios {
+    padding: 80px;
+}
+
+#precios ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    align-items: stretch;
+
+}
+
+#precios li {
+    display: flex;
+}
+
+#precios article {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 30px;
+    border-radius: 16px;
+    background-color: #11192D;
+    align-items: center;
+    width: 50%;
+}
+
+#precios article h3 {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#precios article .price {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#precios footer {
+    margin-top: auto;
+}
+
+#precios .benefits {
+    display: flex;
+    margin: 20px 0;
+    padding: 0;
+    flex-direction: column;
+    list-style: none;
+}
+
+.btn-comenzar-plan {
+    text-decoration: none;
+    padding: 8px 20px; /*8px -> eje y | 15px -> eje x */
+    background-color: #155DFC;
+    color: #ededed;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.plan-elite {
+    background-color: #9810FA;
+}
+
+
+#casos_exito {
+    padding: 80px;
+}
+
+#casos_exito h2 {
+    text-align: center;
+    font-size: 50px;
+}
+
+.footer {
+    display: flex;
+    background-color: #111;
+    margin: -49px;
+    padding: 10px 80px;
+}
+
