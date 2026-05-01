@@ -27,6 +27,7 @@ try {
             <ul>
                 <li><a href="#">Nuevo Proveedor</a></li>
                 <li><a href="#">Ver Proveedores</a></li>
+                <li><a href="../../index.php"> Volver al Inicio</a></li>
             </ul>
         </aside>
 
