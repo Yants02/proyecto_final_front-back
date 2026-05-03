@@ -1,245 +1,196 @@
-body {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
     background-color: #03081A;
+    color: #ededed;
+    overflow-x: hidden;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 130px;
-    background-color: #0B1327;
-}
-
-.header a {
-    font-size: 17px;
-    gap: 30px;
+    padding: 20px 80px;
+    background-color: rgba(11, 19, 39, 0.95);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #155DFC;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
 }
 
-
-.logo img { width: 40px; }
+.logo img { width: 45px; }
 
 .logo-text {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 22px;
     color: #ededed;
 }
 
-
 nav ul {
     display: flex;
-    gap: 40px;
-    list-style: none;
     align-items: center;
+    gap: 30px;
+    list-style: none;
 }
 
 nav a {
     text-decoration: none;
-    color: #ededed;
+    color: #CAD5E2;
     font-weight: 500;
+    transition: 0.3s;
 }
+
+nav a:hover { color: #50A2FF; }
 
 #btn-login {
-    text-decoration: none;
-    padding: 8px 20px; /*8px -> eje y | 15px -> eje x */
-   
     background-color: #155DFC;
-    color: #ededed;
+    color: #fff;
+    padding: 10px 22px;
     border-radius: 8px;
-    font-size: 18px;
+    font-weight: bold;
 }
 
-
-
-main {
-    background-color: #03081A;
-    margin: 0 3%;
-    padding: 40px 20px;
-    color: #ededed;
-}
-
+#btn-login:hover { background-color: #50A2FF; }
 
 #inicio {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 60px 80px;
-    gap: 40px;
+    padding: 100px 80px;
+    min-height: 80vh;
 }
 
-#inicio article {
-    flex: 1 /* flex: 1 para que ocupe el mismo espacio que el figure*/
-}
+#inicio article { flex: 1; }
 
 #inicio h1 {
-    font-size: 48px;
-    color: #ededed;
-    line-height: 1.2;
-}
-.h1-color {
-    color: #50A2FF;
+    font-size: 56px;
+    line-height: 1.1;
+    margin-bottom: 20px;
 }
 
-#inicio .title-desc {
-    font-size: 18px;
-    margin: 20px 0;
-    color: #CAD5E2;
+.h1-color { color: #50A2FF; }
+
+.title-desc {
+    font-size: 20px;
+    color: #90A1B9;
+    margin-bottom: 40px;
+    max-width: 500px;
 }
 
-#inicio .btn-ir-a-dashboard {
+.btn-ir-a-dashboard {
     display: inline-block;
-    padding: 20px 40px; /*12px -> eje y | 20px -> eje x */
+    padding: 18px 35px;
     background-color: #155DFC;
-    color: #ededed;
-    border-radius: 10px;
-    font-weight: 700;
+    color: #fff;
     text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
     text-transform: uppercase;
+    transition: 0.3s;
 }
 
 #inicio figure {
-    flex: 1; /* flex: 1 para que ocupe el mismo espacio que el article*/
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 #inicio img {
-    width: 100%;
-    border-radius: 12px;
+    width: 90%;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(21, 93, 252, 0.2);
 }
 
-#funciones {
-    padding: 80px;
-}
+#funciones { padding: 80px; }
 
-/* Contenedor de las cards */
 #funciones ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    align-items: stretch; /* Para que todas las cards tengan el mismo tamano */
+    gap: 25px;
     list-style: none;
 }
 
-#funciones li {
-    display: flex;
-}
-
-/* Card */
-#funciones li article {
+#funciones article {
     background-color: #0F182C;
-    padding: 24px;
-    border-radius: 12px;
-    border: 1px solid #CAD5E2;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #2A3B5C;
+    height: 100%;
 }
 
-#funciones article header {
+#funciones header {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* height: 100%; */
     align-items: center;
     gap: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-#funciones img {width: 40px;}
+#funciones img { width: 35px; }
 
-#funciones h2 {
-    font-size: 18px;
-    color: #ededed;
-}
+#funciones h2 { color: #50A2FF; font-size: 20px; }
 
-#funciones p {
-    color: #90A1B9;
-    font-size: 14px;
-    line-height: 1.5;
-}
+#funciones p { color: #90A1B9; line-height: 1.6; }
 
-#precios {
-    padding: 80px;
-}
+#precios { padding: 80px; text-align: center; }
+
+#precios > header { margin-bottom: 50px; }
+
+#precios h2 { font-size: 36px; margin-bottom: 10px; }
 
 #precios ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-    align-items: stretch;
-
-}
-
-#precios li {
-    display: flex;
-}
-
-#precios article {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 30px;
-    border-radius: 16px;
-    background-color: #11192D;
-    align-items: center;
-    width: 50%;
-}
-
-#precios article h3 {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-}
-
-#precios article .price {
-    font-size: 40px;
-    font-weight: bold;
-}
-
-#precios footer {
-    margin-top: auto;
-}
-
-#precios .benefits {
-    display: flex;
-    margin: 20px 0;
-    padding: 0;
-    flex-direction: column;
     list-style: none;
 }
 
+#precios article {
+    background-color: #11192D;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #2A3B5C;
+    transition: 0.3s;
+}
+
+#precios article:hover { transform: translateY(-10px); border-color: #155DFC; }
+
+.price { font-size: 32px; font-weight: bold; color: #50A2FF; margin: 15px 0; }
+
+.benefits {
+    text-align: left;
+    margin: 25px 0;
+    list-style: none;
+}
+
+.benefits li { margin-bottom: 10px; color: #CAD5E2; font-size: 15px; }
+
 .btn-comenzar-plan {
-    text-decoration: none;
-    padding: 8px 20px; /*8px -> eje y | 15px -> eje x */
+    display: block;
+    padding: 12px;
     background-color: #155DFC;
-    color: #ededed;
+    color: #fff;
+    text-decoration: none;
     border-radius: 8px;
-    font-size: 18px;
+    font-weight: bold;
 }
 
-.plan-elite {
-    background-color: #9810FA;
-}
-
-
-#casos_exito {
-    padding: 80px;
-}
-
-#casos_exito h2 {
-    text-align: center;
-    font-size: 50px;
-}
+.plan-elite { background-color: #9810FA; }
 
 .footer {
-    display: flex;
-    background-color: #111;
-    margin: -49px;
-    padding: 10px 80px;
+    background-color: #0B1327;
+    padding: 60px 80px;
+    border-top: 1px solid #2A3B5C;
+    margin-top: 50px;
 }
-

@@ -5,31 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/estilos_onepage.css">
+    <link rel="stylesheet" href="css/estilos.css">
     <title>Onepage</title>
 </head>
 
 <body>
-    <header class="header">
-        <a href="index.php" class="logo">
-            <img src="img/icono-tienda.svg" alt="KioskoManager">
-            <span class="logo-text">Kiosko Manager</span>
-        </a>
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Funciones</a></li>
-                <li><a href="#">Precios</a></li>
-                <li><a href="#">Contacto</a></li>
-                <a href="#" id="btn-login">Iniciar Sesión</a>
-            </ul>
-        </nav>
-    </header>
+    <?php include 'php/includes/header_onepage.php'; ?>
     <main>
         <section id="inicio">
             <article>
                 <h1>GESTIONÁ TU NEGOCIO <br><span class="h1-color">SIN VUELTAS</span></h1>
                 <p class="title-desc">Control de stock, precios, proveedores y mucho más <span>desde tu celular</span></p>
-                <a href="#" class="btn-ir-a-dashboard">Ingresar al panel</a>
+                <a href="index.php" class="btn-ir-a-dashboard">Ingresar al panel</a>
             </article>
             <figure>
                 <img src="" alt="Local">

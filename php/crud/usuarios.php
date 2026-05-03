@@ -1,129 +1,67 @@
 <?php
-    include '../conexion.php';
+include '../conexion.php';
 
-    try {
-        $query = "SELECT id, nombre, email, rol, created_at FROM usuarios ORDER BY id DESC;";
-        $resultado = $conn -> query($query);
-    } catch (PDOException $e) {
-        echo "Error al consultar usuarios: " . $e -> getMessage();
-    }
+$ruta_base = '../../'; 
+include '../includes/auth_check.php';
+include '../includes/header_index.php';
+
+try {
+    $query = "SELECT * FROM usuarios ORDER BY id DESC";
+    $resultado = $conn->query($query);
+} catch (PDOException $e) {
+    echo "Error en el sistema: " . $e->getMessage();
+}
 ?>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion de Usuarios</title>
-    <link rel="stylesheet" href="estilos.css">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo">Sistema Gestion 2026</div>
-        <ul class="nav-links">
-            <li><a href="../../index.php">Inicio</a></li>
-            <li><a href="productos.php">Productos</a></li>
-            <li><a href="#">Proveedores</a></li>
-            <li><a href="#">Clientes</a></li>
-        </ul>
-    </nav>
 
     <main class="contenedor-principal">
         <aside class="sidebar">
-            <h3>Funciones</h3>
+            <h3>Gestión de Accesos</h3>
             <ul>
-                <li><a href="#">Nuevo Usuario</a></li>
-                <li><a href="#">Ver Usuarios</a></li>
-                
+                <li><a href="#formulario-alta">Nuevo Usuario</a></li>
+                <li><a href="#tabla-listado">Lista de Usuarios</a></li>
+                <li><a href="../../index.php">Volver al Inicio</a></li>
             </ul>
         </aside>
 
         <section class="contenido">
             <article id="formulario-alta">
-
-                <h2>Cargar Nuevo Usuario</h2>
-                <form action="guardar_usuario.php" method="post" class="formulario">
+                <h2>Registrar Nuevo Usuario</h2>
+                <form action="guardar_usuario.php" method="POST" class="formulario">
                     
                     <div class="campo">
-                        <label for="username">Nombre del Usuario:</label>
-                        <input type="text" name="username" id="username" placeholder="Juan Yotti" required>
+                        <label>Nombre Completo:</label>
+                        <input type="text" name="nombre" placeholder="Ej: Juan Pérez" required>
                     </div>
+
                     <div class="campo">
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" placeholder="jy02@gmail.com" required>
+                        <label>Correo Electrónico (será su Login):</label>
+                        <input type="email" name="email" placeholder="usuario@correo.com" required>
                     </div>
+
                     <div class="campo">
-                        <label for="pass">Contraseña:</label>
-                        <input type="password" name="pass" id="pass" placeholder="••••••••" required>
+                        <label>Contraseña:</label>
+                        <input type="password" name="password" placeholder="Mínimo 6 caracteres" required>
                     </div>
+
                     <div class="campo">
-                        <label for="rol">Rol:</label>
-                        <select name="rol" id="id">
-                            <option value="" disabled selected>Seleccionar Rol</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="ventas">Personal de Ventas</option>
+                        <label>Rol del Usuario:</label>
+                        <select name="rol" class="campo-input" required 
+                                style="width: 100%; padding: 12px; border-radius: 8px; background: #03081A; color: #ededed; border: 1px solid #2A3B5C;">
+                            <option value="ventas">Ventas (Acceso limitado)</option>
+                            <option value="administrador">Administrador (Acceso total)</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn-guardar">Guardar Usuario</button>
+
+                    <div style="margin-top: 15px;">
+                        <button type="submit" class="btn-guardar">Crear Cuenta</button>
+                    </div>
                 </form>
             </article>
 
             <hr>
-
-            <article id="formulario-baja">
-
-                <h2>Eliminar Usuario</h2>
-                <form action="eliminar_usuario.php" method="post" class="formulario">
-                    
-                    <div class="campo">
-                        <label for="id">ID de Usuario:</label>
-                        <input type="number" name="id" id="id" placeholder="23" required>
-                    </div>
-                    
-                    <button type="submit" class="btn-eliminar">Eliminar Usuario</button>
-                </form>
-            </article>
-
-            <hr>
-
-            <article id="formulario-editar">
-
-                <h2>Editar Usuario</h2>
-                <form action="actualizar_usuario.php" method="post" class="formulario">
-                    
-                    <div class="campo">
-                        <label for="id">ID de Usuario:</label>
-                        <input type="number" name="id" id="id" placeholder="23" required>
-                    </div>
-                    <div class="campo">
-                        <label for="nuevo-nombre">Nuevo Nombre:</label>
-                        <input type="text" name="nuevo-nombre" id="nuevo-nombre" placeholder="Juan Yotti" >
-                    </div>
-                    <div class="campo">
-                        <label for="nuevo-email">Nuevo Email:</label>
-                        <input type="email" name="nuevo-email" id="nuevo-email" placeholder="jy2002@gmail.com" >
-                    </div>
-                    <div class="campo">
-                        <label for="nueva-pass">Nueva Contraseña:</label>
-                        <input type="password" name="nueva-pass" id="nueva-pass" placeholder="••••••••" >
-                    </div>
-                    <div class="campo">
-                        <label for="nuevo-rol">Nuevo Rol:</label>
-                        <select name="nuevo-rol" id="nuevo-rol">
-                            <option value="" disabled selected>Seleccionar rol</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="ventas">Personal de Ventas</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="btn-guardar">Actualizar Usuario</button>
-                </form>
-            </article>
 
             <article id="tabla-listado">
-                <h2>Usuarios Registrados</h2>
+                <h2>Cuentas de Usuario</h2>
                 <table class="tabla-datos">
                     <thead>
                         <tr>
@@ -131,35 +69,70 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Rol</th>
-                            <th>Fecha de Alta</th>
-                            <th>Funciones</th>
+                            <th>Fecha Registro</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php while ($row = $resultado->fetch()):?>
 
+                    <?php
+                    $id_a_editar = isset($_GET['editar_id']) ? $_GET['editar_id'] : null;
+                    ?>
+
+                    <tbody>
+                        <?php while ($row = $resultado->fetch()): ?>
                             <tr>
-                                <td><?php echo $row['id'];?></td>
-                                <td><?php echo $row['nombre'];?></td>
-                                <td><?php echo $row['email'];?></td>
-                                <td><?php echo ucfirst($row['rol']);?></td>
-                                <td><?php echo $row['created_at']; ?></td>
-                                <td>
-                                    <button class="btn-editar">Editar</button>
-                                    <button class="btn-borrar">X</button>
-                                </td>
+                                <?php if ($id_a_editar == $row['id']): ?>
+                                    <form action="actualizar_usuario.php" method="POST">
+                                        <td>#<?php echo $row['id']; ?> <input type="hidden" name="id" value="<?php echo $row['id']; ?>"></td>
+                                        <td><input type="text" name="nuevo-nombre" value="<?php echo $row['nombre']; ?>"></td>
+                                        <td><input type="email" name="nuevo-email" value="<?php echo $row['email']; ?>"></td>
+                                        <td>
+                                            <select name="nuevo-rol">
+                                                <option value="ventas" <?php echo $row['rol'] == 'ventas' ? 'selected' : ''; ?>>Ventas</option>
+                                                <option value="administrador" <?php echo $row['rol'] == 'administrador' ? 'selected' : ''; ?>>Admin</option>
+                                            </select>
+                                        </td>
+                                        <td>---</td>
+                                        <td>
+                                            <button type="submit" class="btn-guardar">OK</button>
+                                            <a href="usuarios.php" class="btn-cancelar">X</a>
+                                        </td>
+                                    </form>
+                                <?php else: ?>
+                                    <td>#<?php echo $row['id']; ?></td>
+                                    <td><?php echo $row['nombre']; ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <td>
+                                        <span style="padding: 4px 8px; border-radius: 4px; font-size: 12px; background: <?php echo $row['rol'] == 'administrador' ? '#9b59b6' : '#2ecc71'; ?>;">
+                                            <?php echo strtoupper($row['rol']); ?>
+                                        </span>
+                                    </td>
+                                    <td style="font-size: 13px; color: #90A1B9;">
+                                        <?php echo date("d/m/Y", strtotime($row['created_at'])); ?>
+                                    </td>
+                                    <td>
+                                        <a href="usuarios.php?editar_id=<?php echo $row['id']; ?>" class="btn-editar">Editar</a>
+                                        <?php if($row['id'] != 1):?>
+                                            <form action="eliminar_usuario.php" method="POST" style="display:inline;">
+                                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                                <button type="submit" class="btn-borrar">X</button>
+                                            </form>
+                                        <?php endif; ?>
+                                    </td>
+                                <?php endif; ?>
                             </tr>
-                            <?php endwhile; ?>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </article>
+
         </section>
     </main>
 
     <footer class="footer">
-        <p>2026 - Panel de Control de Usuarios</p>
+        <p>2026 - Control de Accesos - Sistema de Gestión IFTS 4</p>
     </footer>
 
-    <script src="../../js//validaciones.js"></script>
+    <script src="../../js/validaciones.js"></script>
 </body>
 </html>

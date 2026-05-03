@@ -1,5 +1,7 @@
 <?php
 include '../conexion.php';
+$ruta_base = '../../'; 
+include '../includes/header_index.php';
 
 try {
     $query = "SELECT * FROM clientes ORDER BY id DESC";
@@ -8,18 +10,6 @@ try {
     echo "Error al consultar clientes: " . $e->getMessage();
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Clientes - Sistema IFTS 4</title>
-    <link rel="stylesheet" href="../../css/estilos.css">
-</head>
-
-<body>
     <main class="contenedor-principal">
 
         <aside class="sidebar">
@@ -107,10 +97,9 @@ try {
     </main>
 
     <footer class="footer">
-        <p> 2026 - Panel de Control de clientes</p>
+        <p>2026 - Panel de Control de clientes</p>
     </footer>
 
     <script src="../../js/validaciones.js"></script>
 </body>
-
 </html>
