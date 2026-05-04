@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif; /* Podés cambiarlo por la fuente que uses */
+    font-family: Arial, sans-serif;
 }
 
 body {
@@ -10,7 +10,7 @@ body {
     color: #ededed;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Asegura que el footer siempre quede abajo de todo */
+    min-height: 100vh;
 }
 
 .navbar {
@@ -22,7 +22,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid #155DFC; /* Detalle de color abajo del nav */
+    border-bottom: 2px solid #155DFC; 
 }
 
 .navbar .logo {
@@ -83,7 +83,7 @@ body {
     background-color: #11192D;
     padding: 25px;
     border-radius: 10px;
-    border-left: 5px solid #155DFC; /* Línea lateral gruesa estilo alerta/info */
+    border-left: 5px solid #155DFC; 
 }
 
 .info-proyecto h3 {
@@ -111,7 +111,7 @@ body {
     text-align: center;
     padding: 20px;
     border-top: 2px solid #155DFC;
-    margin-top: auto; /* Se empuja hacia abajo automáticamente */
+    margin-top: auto; 
 }
 
 .footer p {

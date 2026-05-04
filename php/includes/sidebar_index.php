@@ -4,6 +4,7 @@
         <li><a href="php/crud/clientes.php">Gestion de Clientes</a></li>
         <li><a href="php/crud/productos.php">Gestion de Productos</a></li>
         <li><a href="php/crud/proveedores.php">Gestion de Proveedores</a></li> 
+        <li><a href="php/crud/compras.php">Gestión de Compras</a></li> 
         <br>
     </ul>
 </aside>

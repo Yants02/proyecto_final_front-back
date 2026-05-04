@@ -29,7 +29,7 @@ include 'php/includes/header_index.php';
     <footer class="footer">
         <div class="footer-content">
             <p>2026 - TP Integrador - IFTS N° 4</p>
-            <p>Integrantes: Bisutti, Yotti y equipo.</p>
+            <p>Integrantes: Bisutti, Yotti y García.</p>
         </div>
     </footer>
 
