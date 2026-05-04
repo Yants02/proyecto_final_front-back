@@ -22,7 +22,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid #155DFC; 
+    border-bottom: 2px solid #155DFC;
 }
 
 .navbar .logo {
@@ -52,7 +52,7 @@ body {
     display: flex;
     flex: 1;
     padding: 30px 50px;
-    gap: 30px; 
+    gap: 30px;
 }
 
 .contenido {
@@ -83,7 +83,7 @@ body {
     background-color: #11192D;
     padding: 25px;
     border-radius: 10px;
-    border-left: 5px solid #155DFC; 
+    border-left: 5px solid #155DFC;
 }
 
 .info-proyecto h3 {
@@ -111,7 +111,7 @@ body {
     text-align: center;
     padding: 20px;
     border-top: 2px solid #155DFC;
-    margin-top: auto; 
+    margin-top: auto;
 }
 
 .footer p {

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/estilos_onepage.css">
     <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=local_convenience_store" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Onepage</title>
 </head>
 
@@ -29,7 +29,9 @@
                 <li>
                     <article>
                         <header>
-                            <img src="img/stock.svg">
+                            <span class="material-symbols-outlined">
+                                box
+                            </span>
                             <h2>Control de stock</h2>
                         </header>
                         <p>Monitoreá tu inventario en tiempo real y recibí alertas de productos con bajo stock</p>
@@ -38,7 +40,9 @@
                 <li>
                     <article>
                         <header>
-                            <img src="img/stock.svg">
+                            <span class="material-symbols-outlined">
+                                finance_mode
+                            </span>
                             <h2>Análisis de ventas</h2>
                         </header>
                         <p>Visualizá tus ventas diarias, productos más vendidos y maximizá tus ganancias</p>
@@ -47,7 +51,9 @@
                 <li>
                     <article>
                         <header>
-                            <img src="img/stock.svg">
+                            <span class="material-symbols-outlined">
+                                local_shipping
+                            </span>
                             <h2>Gestión de proveedores</h2>
                         </header>
                         <p>Registrá ingresos de mercadería, mantené un historial claro de que compraste y a qué precio</p>
@@ -56,7 +62,9 @@
                 <li>
                     <article>
                         <header>
-                            <img src="img/stock.svg">
+                            <span class="material-symbols-outlined">
+                                shopping_cart_checkout
+                            </span>
                             <h2>Registro de ventas</h2>
                         </header>
                         <p>Registrá cada venta en segundos con una interfaz fácil de usar evitando errores en el cobro.</p>
@@ -65,7 +73,9 @@
                 <li>
                     <article>
                         <header>
-                            <img src="img/stock.svg">
+                            <span class="material-symbols-outlined">
+                                inventory
+                            </span>
                             <h2>Carga de productos</h2>
                         </header>
                         <p>Sumá nuevos productos en segundos, definiendo precios de costo y venta.</p>
@@ -74,7 +84,9 @@
                 <li>
                     <article>
                         <header>
-                            <img src="img/stock.svg">
+                            <span class="material-symbols-outlined">
+                                request_quote
+                            </span>
                             <h2>Facturación simplificada</h2>
                         </header>
                         <p>Emití comprobantes de venta al instante, manteniendo así un registro detallado de cada transacción para un cierre de caja transparente y sin diferencias.</p>
@@ -92,7 +104,9 @@
                 <li>
                     <article class="plan">
                         <header>
-                            <img src="img/stock.svg">
+                            <span class="material-symbols-outlined">
+                                diamond
+                            </span>
                             <h3>Pro</h3>
                             <p class="price">Próximamente</p>
                         </header>
@@ -113,8 +127,10 @@
                 <li>
                     <article>
                         <header>
-                            <span>Más Popular</span>
-                            <img src="img/stock.svg">
+                            <span>Más Popular</span><br>
+                            <span class="material-symbols-outlined">
+                                stars
+                            </span>
                             <h3>Lite</h3>
                             <p class="price">GRATIS</p>
                         </header>
@@ -133,7 +149,9 @@
                 <li>
                     <article>
                         <header>
-                            <img src="img/crown.svg">
+                            <span class="material-symbols-outlined">
+                                crown
+                            </span>
                             <h3>Elite</h3>
                             <p class="price">Próximamente</p>
                         </header>

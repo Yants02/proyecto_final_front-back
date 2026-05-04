@@ -12,6 +12,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -21,27 +22,27 @@ body {
     border-bottom: 2px solid #155DFC;
 }
 
-.header a { 
-    text-decoration: none; 
+.header a {
+    text-decoration: none;
 }
 
-.logo { 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.logo img { 
-    width: 40px; 
+.logo img {
+    width: 40px;
 }
 
-.logo-text { 
-    font-weight: bold; 
-    font-size: 20px; 
-    color: #ededed; 
+.logo-text {
+    font-weight: bold;
+    font-size: 20px;
+    color: #ededed;
 }
 
-#btn-login { 
+#btn-login {
     background-color: #155DFC;
     color: #fff;
     padding: 10px 22px;
@@ -53,15 +54,16 @@ body {
     background-color: #b2bec3;
     color: #111;
 }
+
 .contenedor-principal {
     display: flex;
     flex: 1;
     padding: 30px 50px;
-    gap: 30px; 
+    gap: 30px;
 }
 
 .sidebar {
-    width: 260px; 
+    width: 260px;
     background-color: #0F182C;
     padding: 25px;
     border-radius: 12px;
@@ -101,7 +103,7 @@ body {
 }
 
 .contenido {
-    flex: 1; 
+    flex: 1;
 }
 
 .bienvenida {
@@ -211,7 +213,7 @@ body {
     color: #ededed;
 }
 
-.tabla-datos th, 
+.tabla-datos th,
 .tabla-datos td {
     padding: 15px;
     text-align: left;
@@ -244,7 +246,9 @@ body {
     max-width: 180px;
 }
 
-button, .btn-cancelar, .btn-editar {
+button,
+.btn-cancelar,
+.btn-editar {
     padding: 10px 15px;
     border-radius: 8px;
     border: none;
@@ -260,7 +264,7 @@ button, .btn-cancelar, .btn-editar {
 .btn-guardar {
     background-color: #155DFC;
     color: #ededed;
-    align-self: flex-start; 
+    align-self: flex-start;
 }
 
 .btn-guardar:hover {
@@ -308,7 +312,7 @@ hr {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #03081A; 
+    background-color: #03081A;
 }
 
 .login-card {
@@ -318,7 +322,7 @@ hr {
     border: 1px solid #155DFC;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .login-logo {
