@@ -1,19 +1,19 @@
 <?php
-    include("../conexion.php");
+    include("../../conexion.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_POST['id'];
         $camposAActualizar = array();
         $valores = array();
 
+        if (!empty($_POST['nuevo-dni'])){
+            $camposAActualizar[] = "dni = ?";
+            $valores[] = $_POST['nuevo-dni'];
+        }
+
         if (!empty($_POST['nuevo-nombre'])){
             $camposAActualizar[] = "nombre = ?";
             $valores[] = $_POST['nuevo-nombre'];
-        }
-
-        if (!empty($_POST['nuevo-telefono'])){
-            $camposAActualizar[] = "telefono = ?";
-            $valores[] = $_POST['nuevo-telefono'];
         }
 
         if (!empty($_POST['nuevo-email'])){
@@ -21,27 +21,22 @@
             $valores[] = $_POST['nuevo-email'];
         }
 
-        if (!empty($_POST['nuevo-direccion'])){
-            $camposAActualizar[] = "direccion = ?";
-            $valores[] = $_POST['nuevo-direccion'];
-        }
-
         if (count($camposAActualizar) > 0) {
             try {
                 $datos = implode(", ", $camposAActualizar);
 
-                $sql = "UPDATE proveedores SET $datos WHERE id = ?";
+                $sql = "UPDATE clientes SET $datos WHERE id = ?";
                 $stmt = $conn->prepare($sql);
                 $valores[] = $id;
                 $stmt->execute($valores);
-                header("Location: proveedores.php?mensaje=actualizado");
+                header("Location: clientes.php?mensaje=actualizado");
                 exit();
 
             } catch (PDOException $e) {
                 echo "Error al actualizar: " . $e->getMessage();
             }
         } else {
-            header("Location: proveedores.php?mensaje=no_hay_datos");
+            header("Location: clientes.php?mensaje=no_hay_datos");
             exit();
         } 
     }

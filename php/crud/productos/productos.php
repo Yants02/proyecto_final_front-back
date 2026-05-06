@@ -1,7 +1,7 @@
 <?php
-include '../conexion.php';
-$ruta_base = '../../'; 
-include '../includes/header_index.php';
+include '../../conexion.php';
+$ruta_base = '../../../'; 
+include '../../includes/header_index.php';
 
 try {
     $query = "SELECT * FROM productos ORDER BY id DESC";
@@ -18,7 +18,7 @@ try {
             <ul>
                 <li><a href="#formulario-alta">Nuevo Producto</a></li>
                 <li><a href="#tabla-listado">Ver Inventario</a></li>
-                <li><a href="../../index.php">Volver al Inicio</a></li>
+                <li><a href="../../../index.php">Volver al Inicio</a></li>
             </ul>
         </aside>
 
@@ -112,6 +112,5 @@ try {
         <p>2026 - Panel de Control de Inventario - IFTS N° 4</p>
     </footer>
 
-    <script src="../../js/validaciones.js"></script>
 </body>
 </html>

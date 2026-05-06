@@ -1,7 +1,7 @@
 <?php
-include '../conexion.php';
-$ruta_base = '../../'; 
-include '../includes/header_index.php';
+include '../../conexion.php';
+$ruta_base = '../../../'; 
+include '../../includes/header_index.php';
 
 try {
     $query = "SELECT * FROM compras ORDER BY id DESC";
@@ -22,7 +22,7 @@ try {
             <ul>
                 <li><a href="#formulario-alta">Nueva Compra</a></li>
                 <li><a href="#tabla-listado">Ver Órdenes</a></li>
-                <li><a href="../../index.php">Volver al Inicio</a></li>
+                <li><a href="../../../index.php">Volver al Inicio</a></li>
             </ul>
         </aside>
 
@@ -94,7 +94,5 @@ try {
     <footer class="footer">
         <p>2026 - Panel de Control de Compras - IFTS N° 4</p>
     </footer>
-
-    <script src="../../js/validaciones.js"></script>
 </body>
 </html>
