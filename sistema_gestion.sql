@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2026 a las 09:07:50
+-- Tiempo de generación: 06-05-2026 a las 09:53:22
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `clientes` (
-  `id` int(11) NOT NULL ,
+  `id` int(11) NOT NULL,
   `dni` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL
@@ -61,13 +61,9 @@ CREATE TABLE `compras` (
 --
 
 INSERT INTO `compras` (`id`, `id_proveedor`, `nombre_proveedor`, `fecha`, `total`) VALUES
-(1, NULL, 'arcor2', '2026-04-27 03:13:49', 0.00),
-(2, NULL, 'arcor2', '2026-04-27 03:17:19', 0.00),
-(3, NULL, 'arcor2', '2026-04-27 03:17:29', 0.00),
-(4, 3, 'coca cola', '2026-04-27 03:26:28', 0.00),
-(5, 3, 'coca cola', '2026-04-27 03:31:56', 0.00),
-(6, 3, 'coca cola', '2026-04-27 03:31:59', 0.00),
-(7, 3, 'coca colax', '2026-04-28 04:01:15', 0.00);
+(10, 6, 'arcor', '2026-05-06 04:08:32', 770000.00),
+(15, 5, 'manaos', '2026-05-06 04:42:15', 620000.00),
+(16, 5, 'manaos', '2026-05-06 04:50:47', 101400.00);
 
 -- --------------------------------------------------------
 
@@ -83,6 +79,19 @@ CREATE TABLE `detalle_compras` (
   `cantidad` int(11) NOT NULL,
   `precio_costo` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_compras`
+--
+
+INSERT INTO `detalle_compras` (`id`, `id_compra`, `id_producto`, `nombre_producto`, `cantidad`, `precio_costo`) VALUES
+(1, 10, 10, 'chocolate blanco', 100, 20.00),
+(2, 10, 9, 'coca cola', 300, 2500.00),
+(3, 10, 10, 'chocolate blanco', 600, 30.00),
+(7, 15, 10, 'chocolate blanco', 100, 1200.00),
+(8, 15, 9, 'coca cola', 100, 5000.00),
+(9, 16, 9, 'coca cola', 100, 14.00),
+(10, 16, 10, 'chocolate blanco', 500, 200.00);
 
 -- --------------------------------------------------------
 
@@ -102,8 +111,8 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio_venta`, `stock`) VALUES
-(9, 'coca cola', 2500.00, 100),
-(10, 'chocolate', 2000.00, 3000);
+(9, 'coca cola', 2500.00, 600),
+(10, 'chocolate blanco', 2000.00, 4300);
 
 -- --------------------------------------------------------
 
@@ -112,12 +121,11 @@ INSERT INTO `productos` (`id`, `nombre`, `precio_venta`, `stock`) VALUES
 --
 
 CREATE TABLE `proveedores` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `telefono` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `direccion` text DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `direccion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -212,13 +220,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_compras`
 --
 ALTER TABLE `detalle_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`

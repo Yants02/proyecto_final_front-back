@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $sql = "INSERT INTO compras (id_proveedor, nombre_proveedor) 
                 VALUES (:id_prov, :nom_respaldo)";
-        
+
         $stmt = $conn->prepare($sql);
         $stmt->execute([
             'id_prov'      => $id_proveedor,
@@ -23,11 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $id_compra_nueva = $conn->lastInsertId();
 
-        header("Location: compras.php?id_compra=" . $id_compra_nueva);
+        header("Location: ver_detalle_compra.php?id=" . $id_compra_nueva);
         exit();
 
     } catch (PDOException $e) {
         echo "Error al registrar compra: " . $e->getMessage();
     }
 }
-?>
