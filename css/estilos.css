@@ -347,7 +347,7 @@ hr {
 }
 
 .volver-link {
-    text-align: center;
+    /* text-align: center; */
     margin-top: 25px;
 }
 
@@ -359,5 +359,5 @@ hr {
 }
 
 .volver-link a:hover {
-    color: #50A2FF;
+        color: #50A2FF;
 }

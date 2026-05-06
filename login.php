@@ -33,7 +33,6 @@
             <p class="volver-link">
                 <a href="onepage.php">← Volver a la página principal</a>
             </p>
-            
         </div>
     </div>
 </body>
