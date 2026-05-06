@@ -173,7 +173,121 @@
         </section>
 
         <section id="casos_exito">
-            <h2>Casos de éxito</h2>
+            <header>
+                <h2>Casos de éxito</h2>
+                <p>Lo que dicen los dueños de negocios que ya confían en nosotros</p>
+            </header>
+            <ul class="carrousel">
+                <li class="carrousel-item">
+                    <article class="caso-exito">
+                        <img src="./img/caso-exito1.jpg" alt="Maria Garcia" class="card-foto">
+                        <div class="card">
+                            <header>
+                                <h3>Maria Garcia</h3>
+                                <p>Kiosco "La Esquinita"</p>
+                            </header>
+                            <p>"Aumenté mis ventas un 20%"</p>
+                            <div class="beneficio">
+                                <p>Gracias a Kiosko Manager, el control de stock dejó de ser una pesadilla. Ya no pierdo ventas por falta de mercadería. ¡Súper recomendable!</p>
+                            </div>
+                            <footer>
+                                <span class="stars">★★★★★</span>
+                            </footer>
+                        </div>
+                    </article>
+                </li>
+                <li class="carrousel-item">
+                    <article class="caso-exito">
+                        <img src="./img/caso-exito2.jpg" alt="Carlos Perez" class="card-foto">
+                        <div class="card">
+                            <header>
+                                <h3>Carlos Perez</h3>
+                                <p>Minimercado Carlitos</p>
+                            </header>
+                            <p>"Me organizó el negocio"</p>
+                            <div class="beneficio">
+                                <p>La gestión de proveedores me ahorra horas cada semana. Antes era un caos, ahora sé exactamente qué pedir y a qué precio. ¡Muy buena app!</p>
+                            </div>
+                            <footer>
+                                <span class="stars">★★★★</span>
+                            </footer>
+                        </div>
+                    </article>
+                </li>
+                <li class="carrousel-item">
+                    <article class="caso-exito">
+                        <img src="./img/caso-exito3.jpg" alt="Carlos Perez" class="card-foto">
+                        <div class="card">
+                            <header>
+                                <h3>Julio Rodriguez</h3>
+                                <p>Almacén Don Julio</p>
+                            </header>
+                            <p>"Facturación rápida y fácil"</p>
+                            <div class="beneficio">
+                                <p>Emitir comprobantes al instante es genial. Mis clientes lo agradecen y mi cierre de caja es perfecto. Una gran ayuda para el día a día.</p>
+                            </div>
+                            <footer>
+                                <span class="stars">★★★★</span>
+                            </footer>
+                        </div>
+                    </article>
+                </li>
+                <li class="carrousel-item">
+                    <article class="caso-exito">
+                        <img src="./img/caso-exito4.jpg" alt="Ricardo Sosa" class="card-foto">
+                        <div class="card">
+                            <header>
+                                <h3>Ricardo Sosa</h3>
+                                <p>Despensa "El Sol"</p>
+                            </header>
+                            <p>"Control total desde mi casa"</p>
+                            <div class="beneficio">
+                                <p>Lo que más me gusta es poder revisar las ventas del día desde mi casa sin tener que estar físicamente en el local. ¡Es libertad pura!</p>
+                            </div>
+                            <footer>
+                                <span class="stars">★★★★★</span>
+                            </footer>
+                        </div>
+                    </article>
+                </li>
+                <li class="carrousel-item">
+                    <article class="caso-exito">
+                        <img src="./img/caso-exito5.jpg" alt="Elena Martinez" class="card-foto">
+                        <div class="card">
+                            <header>
+                                <h3>Elena Martinez</h3>
+                                <p>Fiambrería "3 Salames"</p>
+                            </header>
+                            <p>"Reduje mis pérdidas al mínimo"</p>
+                            <div class="beneficio">
+                                <p>Gracias a las alertas automáticas de stock, dejé de tirar mercadería vencida. El sistema me avisa con tiempo para rotar los productos y cuidar mi rentabilidad.</p>
+                            </div>
+                            <footer>
+                                <span class="stars">★★★★</span>
+                            </footer>
+                        </div>
+                    </article>
+                </li>
+                <li class="carrousel-item">
+                    <article class="caso-exito">
+                        <img src="./img/caso-exito6.jpg" alt="Javier Ortega" class="card-foto">
+                        <div class="card">
+                            <header>
+                                <h3>Javier Ortega</h3>
+                                <p>Mayorista "Distribuidora Sur"</p>
+                            </header>
+                            <p>"Precision total en grandes volumenes"</p>
+                            <div class="beneficio">
+                                <p>En un mayorista el margen de error debe ser cero. Kiosko Manager nos permite procesar pedidos grandes con una precisión increíble, manteniendo el stock sincronizado en tiempo real.</p>
+                            </div>
+                            <footer>
+                                <span class="stars">★★★★★</span>
+                            </footer>
+                        </div>
+                    </article>
+                </li>
+            </ul>
+                
         </section>
 
         <footer class="footer">
