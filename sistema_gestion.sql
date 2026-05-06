@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-05-2026 a las 09:53:22
+-- Tiempo de generación: 07-05-2026 a las 00:26:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -39,59 +39,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `dni`, `nombre`, `email`) VALUES
-(11, 45654777, 'Jesús Ignacio', 'jesusgarcxx@gmail.com'),
-(12, 123657880, 'Jesús Ignacio García', 'maixl@gmacil.comm');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `compras`
---
-
-CREATE TABLE `compras` (
-  `id` int(11) NOT NULL,
-  `id_proveedor` int(11) DEFAULT NULL,
-  `nombre_proveedor` varchar(100) NOT NULL,
-  `fecha` datetime DEFAULT current_timestamp(),
-  `total` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `compras`
---
-
-INSERT INTO `compras` (`id`, `id_proveedor`, `nombre_proveedor`, `fecha`, `total`) VALUES
-(10, 6, 'arcor', '2026-05-06 04:08:32', 770000.00),
-(15, 5, 'manaos', '2026-05-06 04:42:15', 620000.00),
-(16, 5, 'manaos', '2026-05-06 04:50:47', 101400.00);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `detalle_compras`
---
-
-CREATE TABLE `detalle_compras` (
-  `id` int(11) NOT NULL,
-  `id_compra` int(11) NOT NULL,
-  `id_producto` int(11) DEFAULT NULL,
-  `nombre_producto` varchar(100) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `precio_costo` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `detalle_compras`
---
-
-INSERT INTO `detalle_compras` (`id`, `id_compra`, `id_producto`, `nombre_producto`, `cantidad`, `precio_costo`) VALUES
-(1, 10, 10, 'chocolate blanco', 100, 20.00),
-(2, 10, 9, 'coca cola', 300, 2500.00),
-(3, 10, 10, 'chocolate blanco', 600, 30.00),
-(7, 15, 10, 'chocolate blanco', 100, 1200.00),
-(8, 15, 9, 'coca cola', 100, 5000.00),
-(9, 16, 9, 'coca cola', 100, 14.00),
-(10, 16, 10, 'chocolate blanco', 500, 200.00);
+(1, 43977228, 'Juan Andres', 'jy2002@gmail.com'),
+(2, 2147483647, 'pablo yotti', 'pabloyotti@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -111,8 +60,9 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio_venta`, `stock`) VALUES
-(9, 'coca cola', 2500.00, 600),
-(10, 'chocolate blanco', 2000.00, 4300);
+(7, 'coca', 1200.00, 2),
+(8, 'harina', 2000.00, 18),
+(10, 'Sprite 3Litros', 3500.00, 25);
 
 -- --------------------------------------------------------
 
@@ -133,9 +83,7 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`id`, `nombre`, `telefono`, `email`, `direccion`) VALUES
-(3, 'coca colax', '1122334400', 'coca2@gmail.com', 'calle 555'),
-(5, 'manaos', '2255778899', 'man@gmail.com', 'calle 1234'),
-(6, 'arcor', '1144778899', 'arcor@gmail.com', 'cale 7777');
+(2, 'arcor2', '11392826', 'arcor2@gmail.com', 'calle 1234');
 
 -- --------------------------------------------------------
 
@@ -168,24 +116,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol`, `created_at`
 -- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `dni` (`dni`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- Indices de la tabla `compras`
---
-ALTER TABLE `compras`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_proveedor` (`id_proveedor`);
-
---
--- Indices de la tabla `detalle_compras`
---
-ALTER TABLE `detalle_compras`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_compra` (`id_compra`),
-  ADD KEY `id_producto` (`id_producto`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `productos`
@@ -214,19 +145,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT de la tabla `compras`
---
-ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de la tabla `detalle_compras`
---
-ALTER TABLE `detalle_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -238,30 +157,13 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `compras`
---
-ALTER TABLE `compras`
-  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`) ON DELETE SET NULL;
-
---
--- Filtros para la tabla `detalle_compras`
---
-ALTER TABLE `detalle_compras`
-  ADD CONSTRAINT `detalle_compras_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compras` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `detalle_compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
