@@ -2,7 +2,8 @@
 include '../../conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_compra   = $_POST['id_compra'];
+    $id_compra   = $_POST['id_compra']; // Puede ser 0
+    $id_prov     = $_POST['id_proveedor'];
     $id_producto = $_POST['id_producto'];
     $cantidad    = $_POST['cantidad'];
     $precio      = $_POST['precio_costo'];
@@ -10,46 +11,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $conn->beginTransaction();
 
-        $stmt_prod = $conn->prepare("SELECT nombre FROM productos WHERE id = :id");
-        $stmt_prod->execute(['id' => $id_producto]);
-        $producto = $stmt_prod->fetch(PDO::FETCH_ASSOC);
-        $nombre_respaldo = $producto['nombre'];
+        // 1. SI LA COMPRA NO EXISTE, LA CREAMOS AQUÍ ADENTRO
+        if ($id_compra == 0) {
+            $stmt_p = $conn->prepare("SELECT nombre FROM proveedores WHERE id = ?");
+            $stmt_p->execute([$id_prov]);
+            $nom_prov = $stmt_p->fetchColumn();
 
-        $sql_det = "INSERT INTO detalle_compras (id_compra, id_producto, nombre_producto, cantidad, precio_costo) 
-                    VALUES (:id_c, :id_p, :nom, :cant, :pre)";
-        $stmt_det = $conn->prepare($sql_det);
-        $stmt_det->execute([
-            'id_c'  => $id_compra,
-            'id_p'  => $id_producto,
-            'nom'   => $nombre_respaldo,
-            'cant'  => $cantidad,
-            'pre'   => $precio
-        ]);
+            $ins_c = $conn->prepare("INSERT INTO compras (id_proveedor, nombre_proveedor, total) VALUES (?, ?, 0)");
+            $ins_c->execute([$id_prov, $nom_prov]);
+            $id_compra = $conn->lastInsertId();
+        }
 
-        $sql_stock = "UPDATE productos SET stock = stock + :cant WHERE id = :id";
-        $stmt_stock = $conn->prepare($sql_stock);
-        $stmt_stock->execute([
-            'cant' => $cantidad,
-            'id'   => $id_producto
-        ]);
+        // 2. INSERTAR DETALLE
+        $stmt_prod = $conn->prepare("SELECT nombre FROM productos WHERE id = ?");
+        $stmt_prod->execute([$id_producto]);
+        $nom_prod = $stmt_prod->fetchColumn();
 
-        $sql_total = "UPDATE compras 
-              SET total = (SELECT SUM(cantidad * precio_costo) FROM detalle_compras WHERE id_compra = :id_compra_total)
-              WHERE id = :id_compra_actual";
+        $stmt_det = $conn->prepare("INSERT INTO detalle_compras (id_compra, id_producto, nombre_producto, cantidad, precio_costo) VALUES (?, ?, ?, ?, ?)");
+        $stmt_det->execute([$id_compra, $id_producto, $nom_prod, $cantidad, $precio]);
 
-        $stmt_total = $conn->prepare($sql_total);
+        // 3. ACTUALIZAR STOCK
+        $stmt_stock = $conn->prepare("UPDATE productos SET stock = stock + ? WHERE id = ?");
+        $stmt_stock->execute([$cantidad, $id_producto]);
 
-        $stmt_total->execute([
-            'id_compra_total'  => $id_compra,
-            'id_compra_actual' => $id_compra
-        ]);
+        // 4. ACTUALIZAR TOTAL CABECERA
+        $stmt_total = $conn->prepare("UPDATE compras SET total = (SELECT SUM(cantidad * precio_costo) FROM detalle_compras WHERE id_compra = ?) WHERE id = ?");
+        $stmt_total->execute([$id_compra, $id_compra]);
 
         $conn->commit(); 
-
-        header("Location: ver_detalle_compra.php?id=" . $id_compra . "&msj=agregado");
+        header("Location: ver_detalle_compra.php?id=" . $id_compra);
         exit();
+
     } catch (PDOException $e) {
         $conn->rollBack();
-        echo "Error: " . $e->getMessage();
+        echo "Error: No se guardó nada. " . $e->getMessage();
     }
 }

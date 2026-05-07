@@ -39,11 +39,11 @@ try {
 
         <article id="formulario-alta">
             <h2>Cargar Nueva Compra</h2>
-            <form action="guardar_compra.php" method="POST" class="formulario">
+            <form action="ver_detalle_compra.php" method="GET" class="formulario">
 
                 <div class="campo">
                     <label for="id_proveedor">Seleccionar Proveedor:</label>
-                    <select name="id_proveedor" id="id_proveedor" class="campo-input" required
+                    <select name="id_prov" id="id_proveedor" class="campo-input" required
                         style="width: 100%; padding: 12px; border-radius: 8px; background: #03081A; color: #ededed; border: 1px solid #2A3B5C;">
                         <option value="">-- Seleccione un proveedor --</option>
                         <?php foreach ($proveedores as $prov): ?>
