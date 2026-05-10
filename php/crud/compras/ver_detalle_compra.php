@@ -1,48 +1,44 @@
 <?php
+session_start();
 include '../../conexion.php';
 $ruta_base = '../../../';
 include '../../includes/header_index.php';
 
-// Puede venir el ID de una compra existente o el ID de un proveedor para una nueva
-$id_compra = $_GET['id'] ?? 0;
-$id_prov = $_GET['id_prov'] ?? 0;
-
-try {
-    $compra = null;
-    if ($id_compra > 0) {
-        $stmt = $conn->prepare("SELECT * FROM compras WHERE id = :id");
-        $stmt->execute(['id' => $id_compra]);
-        $compra = $stmt->fetch(PDO::FETCH_ASSOC);
-    } else {
-        // Si es nueva, buscamos el nombre del proveedor para mostrarlo
-        $stmt = $conn->prepare("SELECT nombre FROM proveedores WHERE id = :id");
-        $stmt->execute(['id' => $id_prov]);
-        $nombre_p = $stmt->fetchColumn();
-        $compra = ['nombre_proveedor' => $nombre_p, 'id' => 0];
-    }
-
-    $productos = $conn->query("SELECT id, nombre FROM productos ORDER BY nombre ASC")->fetchAll(PDO::FETCH_ASSOC);
-    $detalles = [];
-    if ($id_compra > 0) {
-        $stmt_det = $conn->prepare("SELECT * FROM detalle_compras WHERE id_compra = :id");
-        $stmt_det->execute(['id' => $id_compra]);
-        $detalles = $stmt_det->fetchAll(PDO::FETCH_ASSOC);
-    }
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+// Si venimos de compras.php, guardamos el proveedor en la sesión
+if (isset($_GET['id_prov'])) {
+    $_SESSION['compra_temp'] = [
+        'id_prov' => $_GET['id_prov'],
+        'productos' => [] // Aquí guardaremos los items
+    ];
 }
+
+// Si no hay sesión iniciada, volvemos al listado
+if (!isset($_SESSION['compra_temp'])) {
+    header("Location: compras.php");
+    exit();
+}
+
+// Puede venir el ID de una compra existente o el ID de un proveedor para una nueva
+// $id_compra = $_GET['id'] ?? 0;
+// $id_prov = $_GET['id_prov'] ?? 0;
+
+$id_prov = $_SESSION['compra_temp']['id_prov'];
+
+// Buscamos el nombre del proveedor para mostrarlo
+$stmt = $conn->prepare("SELECT nombre FROM proveedores WHERE id = :id");
+$stmt->execute(['id' => $id_prov]);
+$nombre_p = $stmt->fetchColumn();
+
+$productos = $conn->query("SELECT id, nombre FROM productos ORDER BY nombre ASC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <main class="contenedor-principal">
     <section class="contenido">
-        <h2><?php echo ($id_compra > 0) ? "Orden #$id_compra" : "Nueva Orden"; ?></h2>
-        <p>Proveedor: <strong><?php echo $compra['nombre_proveedor']; ?></strong></p>
+        <h2>Nueva Orden</h2>
+        <p>Proveedor: <strong><?php echo $nombre_p; ?></strong></p>
 
         <article id="formulario-alta">
             <form action="guardar_detalle_compra.php" method="POST" class="formulario">
-                <input type="hidden" name="id_compra" value="<?php echo $id_compra; ?>">
-                <input type="hidden" name="id_proveedor" value="<?php echo $id_prov; ?>">
-
                 <div class="campo">
                     <label>Producto:</label>
                     <select name="id_producto" class="campo-input" required>
@@ -78,7 +74,9 @@ try {
                 <tbody>
                     <?php
                     $total_orden = 0;
-                    foreach ($detalles as $d):
+                    $items_carrito = $_SESSION['compra_temp']['productos'];
+                    // Recorrer session
+                    foreach ($items_carrito as $d):
                         $subtotal = $d['cantidad'] * $d['precio_costo'];
                         $total_orden += $subtotal;
                     ?>
@@ -89,7 +87,7 @@ try {
                             <td>$<?php echo number_format($subtotal, 2, ',', '.'); ?></td>
                         </tr>
                     <?php endforeach; ?>
-                    <?php if (empty($detalles)): ?>
+                    <?php if (empty($items_carrito)): ?>
                         <tr>
                             <td colspan="4" style="text-align: center;">No hay productos cargados aún.</td>
                         </tr>
@@ -101,11 +99,11 @@ try {
                 <h3 style="margin: 0;">Total de la Orden: $<?php echo number_format($total_orden, 2, ',', '.'); ?></h3>
 
                 <div style="display: flex; gap: 10px;">
-                    <a href="compras.php" class="btn-guardar" style="background: #2ecc71; text-decoration: none;">
-                        Finalizar Compra
+                    <a href="finalizar_transaccion.php" class="btn-guardar" style="background: #2ecc71; text-decoration: none;">
+                        Confirmar compra
                     </a>
                     <a href="compras.php" class="btn-cancelar" style="text-decoration: none;">
-                        Salir sin guardar
+                        Cancelar y salir
                     </a>
                 </div>
             </div>

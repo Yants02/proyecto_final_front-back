@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../../conexion.php';
 $ruta_base = '../../../';
 include '../../includes/header_index.php';
