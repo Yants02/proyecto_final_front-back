@@ -31,7 +31,7 @@ try {
     <section class="contenido">
         <article id="formulario-alta">
             <h2>Cargar Nueva Compra</h2>
-            <form action="ver_detalle_compra.php" method="GET" class="formulario">
+            <form action="crear_compra.php" method="GET" class="formulario">
                 <div class="campo">
                     <label for="id_proveedor">Seleccionar Proveedor:</label>
                     <select name="id_prov" id="id_proveedor" class="campo-input" required
