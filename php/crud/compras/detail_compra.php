@@ -52,7 +52,7 @@ try {
                     </p>
                 </div>
                 
-                <a href="../../acciones/generar_orden_compra.php?id=<?php echo $compra['id']; ?>" target="_blank" class="btn-guardar" style="background-color: #155DFC; text-decoration: none;">
+                <a href="../../acciones/generar_orden_compra.php?id=<?php echo $compra['id']; ?>" target="_blank" class="btn-guardar">
                      Imprimir Orden (PDF)
                 </a>
             </div>

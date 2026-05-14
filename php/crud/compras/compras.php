@@ -56,7 +56,7 @@ try {
         <article id="tabla-listado">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 style="margin: 0;">Órdenes de Compra</h2>
-                <a href="../../acciones/generar_pdf_compras.php" target="_blank" class="btn-guardar" style="background-color: #9810FA; text-decoration: none;">Imprimir Órdenes (PDF)</a>
+                <a href="../../acciones/generar_registro_compras.php" target="_blank" class="btn-guardar" style="background-color: #9810FA; text-decoration: none;">Imprimir Listado General (PDF)</a>
             </div>
             
             <table class="tabla-datos">
