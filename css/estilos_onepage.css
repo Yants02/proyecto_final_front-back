@@ -255,8 +255,8 @@ nav a:hover {
 
 #casos_exito .carrousel {
     display: flex;
-    overflow-x: auto; /* permite scroll horizontal */
-    scroll-snap-type: x mandatory; /* fuerza a que se detenga en una card */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 20px;
     padding: 20px 50px;
     list-style: none;
@@ -286,11 +286,11 @@ nav a:hover {
 
 
 .carrousel::-webkit-scrollbar {
-    display: none; /* ocultar barra de scroll */
+    display: none;
 }
 
 .carrousel-item {
-    flex: 0 0 350px; /* ancho fijo */
+    flex: 0 0 350px;
     scroll-snap-align: center;
 }
 
@@ -335,4 +335,82 @@ nav a:hover {
     letter-spacing: 5px;
     line-height: 1;
 
+}
+#contacto {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+#contacto h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+#contacto .formulario {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #11192D;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #2A3B5C;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+#contacto .campo {
+    margin-bottom: 25px;
+}
+
+#contacto .campo label {
+    display: block;
+    margin-bottom: 8px;
+    color: #CAD5E2;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+#contacto .campo input,
+#contacto .campo textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid #2A3B5C;
+    background-color: #03081A; 
+    color: #ededed;
+    font-family: inherit;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+#contacto .campo input:focus,
+#contacto .campo textarea:focus {
+    outline: none;
+    border-color: #155DFC;
+    box-shadow: 0 0 0 3px rgba(21, 93, 252, 0.2);
+}
+
+#contacto .campo textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+#contacto .btn-guardar {
+    width: 100%; 
+    padding: 15px;
+    background-color: #155DFC;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+
+#contacto .btn-guardar:hover {
+    background-color: #50A2FF;
+    transform: translateY(-2px);
 }

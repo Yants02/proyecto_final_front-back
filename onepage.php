@@ -289,6 +289,34 @@
             </ul>
                 
         </section>
+    <section id="contacto">
+    <h2>Contactanos</h2>
+    
+    <?php if(isset($_GET['mensaje']) && $_GET['mensaje'] == 'enviado'): ?>
+        <div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+            ¡Tu mensaje fue enviado correctamente!
+        </div>
+    <?php endif; ?>
+
+    <form action="php/enviar_contacto.php" method="POST" class="formulario">
+        <div class="campo">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        
+        <div class="campo">
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="tu@email.com" required>
+        </div>
+        
+        <div class="campo">
+            <label>Consulta:</label>
+            <textarea name="consulta" rows="5" placeholder="Escribí tu mensaje acá..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn-guardar">Enviar Mensaje</button>
+    </form>
+</section>
 
         <footer class="footer">
             <section id="empresa">
