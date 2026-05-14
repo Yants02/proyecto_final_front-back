@@ -298,7 +298,7 @@
         </div>
     <?php endif; ?>
 
-    <form action="php/enviar_contacto.php" method="POST" class="formulario">
+    <form action="php/acciones/enviar_contacto.php" method="POST" class="formulario">
         <div class="campo">
             <label>Nombre:</label>
             <input type="text" name="nombre" placeholder="Tu nombre" required>

@@ -1,5 +1,5 @@
 <?php
-include '../../conexion.php';
+include '../../config/conexion.php';
 $ruta_base = '../../../'; 
 include '../../includes/header_index.php';
 $resultado = false; 

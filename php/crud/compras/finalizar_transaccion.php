@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../../conexion.php';
+include '../../config/conexion.php';
 
 if (!isset($_SESSION['compra_temp']) || empty($_SESSION['compra_temp']['productos'])) {
     header("Location: compras.php");

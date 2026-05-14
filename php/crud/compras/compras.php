@@ -1,10 +1,11 @@
 <?php
 session_start();
-include '../../conexion.php';
+include '../../config/conexion.php';
 $ruta_base = '../../../';
 include '../../includes/header_index.php';
 
 try {
+    // Solo traemos la lista general
     $query = "SELECT * FROM compras ORDER BY id DESC";
     $resultado = $conn->query($query);
 
@@ -12,21 +13,12 @@ try {
     $stmt_prov = $conn->query($sql_prov);
     $proveedores = $stmt_prov->fetchAll(PDO::FETCH_ASSOC);
 
-    // Clic en una orden
-    $detalles_seleccionados = null;
-    if (isset($_GET['ver_detalle'])) {
-        $id_c = $_GET['ver_detalle'];
-        $stmt_det = $conn->prepare("SELECT * FROM detalle_compras WHERE id_compra = :id");
-        $stmt_det->execute(['id' => $id_c]);
-        $detalles_seleccionados = $stmt_det->fetchAll(PDO::FETCH_ASSOC);
-    }
 } catch (PDOException $e) {
     echo "Error en el sistema: " . $e->getMessage();
 }
 ?>
 
 <main class="contenedor-principal">
-
     <aside class="sidebar">
         <h3>Acciones</h3>
         <ul>
@@ -37,11 +29,9 @@ try {
     </aside>
 
     <section class="contenido">
-
         <article id="formulario-alta">
             <h2>Cargar Nueva Compra</h2>
             <form action="ver_detalle_compra.php" method="GET" class="formulario">
-
                 <div class="campo">
                     <label for="id_proveedor">Seleccionar Proveedor:</label>
                     <select name="id_prov" id="id_proveedor" class="campo-input" required
@@ -54,7 +44,6 @@ try {
                         <?php endforeach; ?>
                     </select>
                 </div>
-
                 <div style="margin-top: 20px; display: flex; gap: 10px;">
                     <button type="submit" class="btn-guardar">Crear orden</button>
                     <a href="compras.php" class="btn-cancelar">Cancelar</a>
@@ -63,8 +52,13 @@ try {
         </article>
 
         <hr>
+        
         <article id="tabla-listado">
-            <h2>Órdenes de Compra</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0;">Órdenes de Compra</h2>
+                <a href="../../acciones/generar_pdf_compras.php" target="_blank" class="btn-guardar" style="background-color: #9810FA; text-decoration: none;">Imprimir Órdenes (PDF)</a>
+            </div>
+            
             <table class="tabla-datos">
                 <thead>
                     <tr>
@@ -73,16 +67,13 @@ try {
                         <th>Nombre Proveedor</th>
                         <th>Fecha</th>
                         <th>Total</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = $resultado->fetch()): ?>
                         <tr>
-                            <td><!-- ver detalles debajo -->
-                                <a href="compras.php?ver_detalle=<?php echo $row['id']; ?>#tabla-detalles" style="color: #50A2FF; text-decoration: none;">
-                                    <strong>#<?php echo $row['id']; ?></strong>
-                                </a>
-                            </td>
+                            <td><strong>#<?php echo $row['id']; ?></strong></td>
                             <td>
                                 <?php
                                 echo $row['id_proveedor'];
@@ -96,41 +87,14 @@ try {
                             <td style="color: #50A2FF; font-weight: bold;">
                                 $<?php echo number_format($row['total'], 2, ',', '.'); ?>
                             </td>
+                            <td>
+                                <a href="detail_compra.php?id=<?php echo $row['id']; ?>" class="btn-guardar" style="padding: 6px 12px; font-size: 13px; text-decoration: none;">Ver Detalle</a>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
-            <?php if ($detalles_seleccionados): ?>
-                <hr id="tabla-detalles" style="margin: 40px 0; border-color: #2A3B5C;">
-                <article>
-                    <h2>Detalles de la Orden #<?php echo $_GET['ver_detalle']; ?></h2>
-                    <table class="tabla-datos" style="background: #050C24;">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio Costo</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($detalles_seleccionados as $det): ?>
-                                <tr>
-                                    <td><?php echo $det['nombre_producto']; ?></td>
-                                    <td><?php echo $det['cantidad']; ?></td>
-                                    <td>$<?php echo number_format($det['precio_costo'], 2, ',', '.'); ?></td>
-                                    <td>$<?php echo number_format($det['cantidad'] * $det['precio_costo'], 2, ',', '.'); ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    <div style="margin-top: 10px;">
-                        <a href="compras.php" class="btn-cancelar">Cerrar detalles</a>
-                    </div>
-                </article>
-            <?php endif; ?>
         </article>
-
     </section>
 </main>
 
@@ -138,5 +102,4 @@ try {
     <p>2026 - Panel de Control de Compras - IFTS N° 4</p>
 </footer>
 </body>
-
 </html>

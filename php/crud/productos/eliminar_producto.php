@@ -1,6 +1,6 @@
 <?php 
 
-    include("../../conexion.php");
+    include("../../config/conexion.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_POST['id'];
