@@ -1,3 +1,6 @@
+/* =========================================
+   1. RESETEO Y CONFIGURACIÓN GENERAL
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -5,14 +8,18 @@
     font-family: Arial, sans-serif;
 }
 
+/* Fondo de toda la página y comportamiento del alto */
 body {
-    background-color: #03081A;
-    color: #ededed;
+    background-color: #03081A; /* Azul noche muy oscuro */
+    color: #ededed;            /* Texto casi blanco para contraste */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh;         /* Ocupa al menos el 100% de la pantalla */
 }
 
+/* =========================================
+   2. HEADER Y NAVEGACIÓN SUPERIOR
+   ========================================= */
 .header {
     display: flex;
     justify-content: space-between;
@@ -42,33 +49,24 @@ body {
     color: #ededed;
 }
 
-#btn-login {
-    background-color: #155DFC;
-    color: #fff;
-    padding: 10px 22px;
-    border-radius: 8px;
-    font-weight: bold;
-}
-
-#btn-login:hover {
-    background-color: #b2bec3;
-    color: #111;
-}
-
+/* =========================================
+   3. ESTRUCTURA PRINCIPAL (SIDEBAR Y CONTENIDO)
+   ========================================= */
 .contenedor-principal {
     display: flex;
-    flex: 1;
+    flex: 1;                 /* Empuja el footer hacia abajo */
     padding: 30px 50px;
-    gap: 30px;
+    gap: 30px;               /* Espacio entre sidebar y contenido */
 }
 
+/* Menú lateral (Sidebar) */
 .sidebar {
     width: 260px;
     background-color: #0F182C;
     padding: 25px;
     border-radius: 12px;
     border: 1px solid #CAD5E2;
-    height: fit-content;
+    height: fit-content;     /* Se adapta al contenido que tenga adentro */
 }
 
 .sidebar h3 {
@@ -96,66 +94,19 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Efecto hover del menú lateral */
 .sidebar a:hover {
     background-color: #155DFC;
     color: #ededed;
-    transform: translateX(5px);
+    transform: translateX(5px); /* Pequeño movimiento hacia la derecha */
 }
 
+/* Contenedor derecho (donde van las tablas y forms) */
 .contenido {
     flex: 1;
 }
 
-.bienvenida {
-    background-color: #0F182C;
-    padding: 40px;
-    border-radius: 12px;
-    border: 1px solid #CAD5E2;
-}
-
-.bienvenida h1 {
-    font-size: 32px;
-    color: #ededed;
-    margin-bottom: 15px;
-}
-
-.bienvenida p {
-    color: #CAD5E2;
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 30px;
-}
-
-.info-proyecto {
-    background-color: #11192D;
-    padding: 25px;
-    border-radius: 10px;
-    border-left: 5px solid #155DFC;
-}
-
-.info-proyecto h3 {
-    margin-bottom: 15px;
-    color: #50A2FF;
-    font-size: 20px;
-}
-
-.info-proyecto li {
-    margin-bottom: 12px;
-    color: #90A1B9;
-    font-size: 15px;
-    list-style: none;
-}
-
-.footer {
-    background-color: #0B1327;
-    text-align: center;
-    padding: 20px;
-    border-top: 2px solid #155DFC;
-    margin-top: auto;
-    color: #90A1B9;
-    font-size: 14px;
-}
-
+/* Tarjetas base para el contenido (Articles) */
 .contenido article {
     background-color: #0F182C;
     padding: 30px;
@@ -172,11 +123,14 @@ body {
     padding-bottom: 10px;
 }
 
+/* =========================================
+   4. FORMULARIOS E INPUTS
+   ========================================= */
 .formulario {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-width: 500px;
+    max-width: 500px; /* Ancho máximo estándar para forms */
 }
 
 .campo {
@@ -191,7 +145,11 @@ body {
     font-weight: bold;
 }
 
-.campo input {
+/* Clase universal para inputs y selects (Reemplaza estilos en línea) */
+.campo-input, 
+.campo input, 
+.campo select {
+    width: 100%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #2A3B5C;
@@ -202,10 +160,15 @@ body {
     transition: border-color 0.3s ease;
 }
 
-.campo input:focus {
-    border-color: #50A2FF;
+.campo-input:focus, 
+.campo input:focus, 
+.campo select:focus {
+    border-color: #50A2FF; /* Borde azul al hacer clic */
 }
 
+/* =========================================
+   5. TABLAS DE DATOS
+   ========================================= */
 .tabla-datos {
     width: 100%;
     border-collapse: collapse;
@@ -233,7 +196,7 @@ body {
 }
 
 .tabla-datos tbody tr:hover {
-    background-color: #11192D;
+    background-color: #11192D; /* Brillo leve al pasar el mouse */
 }
 
 .tabla-datos input {
@@ -246,9 +209,14 @@ body {
     max-width: 180px;
 }
 
+/* =========================================
+   6. BOTONES GENERALES
+   ========================================= */
 button,
 .btn-cancelar,
-.btn-editar {
+.btn-editar,
+.btn-guardar,
+.btn-borrar {
     padding: 10px 15px;
     border-radius: 8px;
     border: none;
@@ -301,12 +269,18 @@ button,
     color: #111;
 }
 
-hr {
-    border: none;
-    border-top: 1px dashed #2A3B5C;
-    margin: 40px 0;
+/* Botón especial para reportes o totales */
+.btn-violeta {
+    background-color: #9810FA;
+    color: #fff;
+}
+.btn-violeta:hover {
+    background-color: #b952ff;
 }
 
+/* =========================================
+   7. PÁGINA DE LOGIN Y BIENVENIDA
+   ========================================= */
 .login-wrapper {
     display: flex;
     justify-content: center;
@@ -340,14 +314,23 @@ hr {
     margin-top: 10px;
 }
 
-#btn-login-submit {
+#btn-login, #btn-login-submit {
     width: 100%;
     margin-top: 20px;
     padding: 15px;
+    background-color: #155DFC;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+#btn-login:hover, #btn-login-submit:hover {
+    background-color: #50A2FF;
 }
 
 .volver-link {
-    /* text-align: center; */
     margin-top: 25px;
 }
 
@@ -359,5 +342,79 @@ hr {
 }
 
 .volver-link a:hover {
-        color: #50A2FF;
+    color: #50A2FF;
+}
+
+.bienvenida, .info-proyecto {
+    background-color: #0F182C;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid #CAD5E2;
+}
+
+/* =========================================
+   8. UTILIDADES NUEVAS (COMPRAS Y JS)
+   ========================================= */
+/* Separadores */
+hr {
+    border: none;
+    border-top: 1px dashed #2A3B5C;
+    margin: 40px 0;
+}
+
+/* Contenedores Flexibles (Para no usar style="display:flex...") */
+.flex-gap-10 {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.flex-row-wrap {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Cajas oscuras para destacar zonas (Ej: Agregar producto en compras) */
+.caja-oscura {
+    background: #050C24;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #2A3B5C;
+}
+
+/* Estilo para los elementos de la lista generados por JavaScript en compras */
+.item-lista {
+    background: #03081A;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #155DFC;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Textos destacados */
+.texto-primario {
+    color: #50A2FF;
+}
+
+.texto-total {
+    color: #9810FA;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* =========================================
+   9. FOOTER
+   ========================================= */
+.footer {
+    background-color: #0B1327;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #155DFC;
+    margin-top: auto; /* Lo empuja siempre abajo del todo */
+    color: #90A1B9;
+    font-size: 14px;
 }

@@ -22,24 +22,44 @@ try {
     </aside>
 
     <section class="contenido">
-        <article id="formulario-alta">
-            <h2>Cargar Nuevo Cliente</h2>
-            <form action="guardar_cliente.php" method="POST" class="formulario">
-                <div class="campo">
-                    <label>DNI del Cliente:</label>
-                    <input type="number" name="dni" required>
-                </div>
-                <div class="campo">
-                    <label>Nombre del cliente:</label>
-                    <input type="text" name="nombre" placeholder="Nombre y apellido" required>
-                </div>
-                <div class="campo">
-                    <label>Email del Cliente:</label>
-                    <input type="email" name="email" placeholder="mail@mail.com" required>
-                </div>
-                <button type="submit" class="btn-guardar">Guardar Cliente</button>
-            </form>
-        </article>
+
+            <article id="formulario-alta">
+                
+                <?php if (isset($_GET['error']) && $_GET['error'] == 'dni_duplicado'): ?>
+                    <div style="background-color: #d63031; color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #ff7675;">
+                        <strong>¡Atención!</strong> No se pudo guardar. Ya existe un cliente registrado con ese mismo DNI.
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'creado'): ?>
+                    <div style="background-color: #00b894; color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #00cec9;">
+                        <strong>¡Éxito!</strong> Cliente guardado correctamente.
+                    </div>
+                <?php endif; ?>
+                <h2>Cargar Nuevo Cliente</h2>
+                
+                <form action="guardar_cliente.php" method="POST" class="formulario">
+                    
+                    <div class="campo">
+                        <label>DNI del Cliente:</label>
+                        <input type="number" name="dni" class="campo-input" placeholder="Sin puntos ni espacios" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Nombre del cliente:</label>
+                        <input type="text" name="nombre" class="campo-input" placeholder="Nombre y apellido" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Email del Cliente:</label>
+                        <input type="email" name="email" class="campo-input" placeholder="mail@mail.com" required>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <button type="submit" class="btn-guardar">Guardar Cliente</button>
+                    </div>
+                </form>
+            </article>
 
         <hr>
 
@@ -95,9 +115,7 @@ try {
     </section>
 </main>
 
-<footer class="footer">
-    <p>2026 - Panel de Control de clientes</p>
-</footer>
+<?php include '../../includes/footer.php'; ?>
 
 </body>
 </html>

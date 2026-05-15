@@ -126,9 +126,6 @@ try {
         </section>
     </main>
 
-    <footer class="footer">
-        <p>2026 - Panel de Control de Proveedores - IFTS N° 4</p>
-    </footer>
-
+    <?php include '../../includes/footer.php'; ?>
 </body>
 </html>

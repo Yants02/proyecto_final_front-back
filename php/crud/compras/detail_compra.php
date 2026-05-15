@@ -4,7 +4,6 @@ include '../../config/conexion.php';
 $ruta_base = '../../../';
 include '../../includes/header_index.php';
 
-// Si alguien entra sin un ID válido, lo pateamos de vuelta a compras
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: compras.php");
     exit();
@@ -13,7 +12,6 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $id_compra = $_GET['id'];
 
 try {
-    // 1. Buscamos los datos generales de esta compra específica
     $stmt_compra = $conn->prepare("SELECT * FROM compras WHERE id = :id");
     $stmt_compra->execute(['id' => $id_compra]);
     $compra = $stmt_compra->fetch(PDO::FETCH_ASSOC);
@@ -22,7 +20,6 @@ try {
         die("La orden de compra no existe.");
     }
 
-    // 2. Buscamos los productos (ítems) de esta compra
     $stmt_det = $conn->prepare("SELECT * FROM detalle_compras WHERE id_compra = :id");
     $stmt_det->execute(['id' => $id_compra]);
     $detalles = $stmt_det->fetchAll(PDO::FETCH_ASSOC);
@@ -33,7 +30,6 @@ try {
 ?>
 
 <main class="contenedor-principal">
-    
     <aside class="sidebar">
         <h3>Navegación</h3>
         <ul>
@@ -43,48 +39,55 @@ try {
 
     <section class="contenido">
         <article>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="flex-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <div>
-                    <h2 style="margin: 0; margin-bottom: 5px;">Detalles de la Orden #<?php echo $compra['id']; ?></h2>
-                    <p style="color: #90A1B9; margin: 0;">
-                        Proveedor: <strong><?php echo $compra['nombre_proveedor']; ?></strong> | 
+                    <h2>Detalles de la Orden #<?php echo $compra['id']; ?></h2>
+                    <p style="color: #90A1B9;">
+                        Proveedor: <strong class="texto-primario"><?php echo $compra['nombre_proveedor']; ?></strong> | 
                         Fecha: <?php echo date("d/m/Y H:i", strtotime($compra['fecha'])); ?>
                     </p>
                 </div>
                 
-                <a href="../../acciones/generar_orden_compra.php?id=<?php echo $compra['id']; ?>" target="_blank" class="btn-guardar">
-                     Imprimir Orden (PDF)
-                </a>
+                <div class="flex-gap-10" style="margin-top: 0;">
+                    <a href="../../acciones/generar_orden_compra.php?id=<?php echo $compra['id']; ?>" target="_blank" class="btn-guardar">
+                        Imprimir Orden (PDF)
+                    </a>
+                    <a href="eliminar_compra.php?id=<?php echo $compra['id']; ?>" class="btn-borrar" onclick="return confirm('¿Estás seguro de que querés eliminar toda esta orden? Esta acción no se puede deshacer.');">
+                        Eliminar Orden
+                    </a>
+                </div>
             </div>
 
-            <table class="tabla-datos" style="background: #050C24;">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio Costo</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($detalles as $det): ?>
+            <div class="caja-oscura">
+                <table class="tabla-datos">
+                    <thead>
                         <tr>
-                            <td><?php echo $det['nombre_producto']; ?></td>
-                            <td><?php echo $det['cantidad']; ?></td>
-                            <td>$<?php echo number_format($det['precio_costo'], 2, ',', '.'); ?></td>
-                            <td style="color: #50A2FF;">$<?php echo number_format($det['cantidad'] * $det['precio_costo'], 2, ',', '.'); ?></td>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Costo</th>
+                            <th>Subtotal</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3" style="text-align: right; font-size: 18px;"><strong>TOTAL DE LA ORDEN:</strong></td>
-                        <td style="color: #9810FA; font-size: 18px; font-weight: bold;">
-                            $<?php echo number_format($compra['total'], 2, ',', '.'); ?>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($detalles as $det): ?>
+                            <tr>
+                                <td><?php echo $det['nombre_producto']; ?></td>
+                                <td><?php echo $det['cantidad']; ?></td>
+                                <td>$<?php echo number_format($det['precio_costo'], 2, ',', '.'); ?></td>
+                                <td class="texto-primario">$<?php echo number_format($det['cantidad'] * $det['precio_costo'], 2, ',', '.'); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" style="text-align: right; font-size: 16px;"><strong>TOTAL DE LA ORDEN:</strong></td>
+                            <td class="texto-total">
+                                $<?php echo number_format($compra['total'], 2, ',', '.'); ?>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
             
         </article>
     </section>

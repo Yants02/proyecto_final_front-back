@@ -5,7 +5,6 @@ $ruta_base = '../../../';
 include '../../includes/header_index.php';
 
 try {
-    // Solo traemos la lista general
     $query = "SELECT * FROM compras ORDER BY id DESC";
     $resultado = $conn->query($query);
 
@@ -31,11 +30,10 @@ try {
     <section class="contenido">
         <article id="formulario-alta">
             <h2>Cargar Nueva Compra</h2>
-            <form action="crear_compra.php" method="GET" class="formulario">
+            <form action="guardar_compra.php" method="GET" class="formulario">
                 <div class="campo">
                     <label for="id_proveedor">Seleccionar Proveedor:</label>
-                    <select name="id_prov" id="id_proveedor" class="campo-input" required
-                        style="width: 100%; padding: 12px; border-radius: 8px; background: #03081A; color: #ededed; border: 1px solid #2A3B5C;">
+                    <select name="id_prov" id="id_proveedor" class="campo-input" required>
                         <option value="">-- Seleccione un proveedor --</option>
                         <?php foreach ($proveedores as $prov): ?>
                             <option value="<?php echo $prov['id']; ?>">
@@ -44,7 +42,8 @@ try {
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                
+                <div class="flex-gap-10">
                     <button type="submit" class="btn-guardar">Crear orden</button>
                     <a href="compras.php" class="btn-cancelar">Cancelar</a>
                 </div>
@@ -98,8 +97,6 @@ try {
     </section>
 </main>
 
-<footer class="footer">
-    <p>2026 - Panel de Control de Compras - IFTS N° 4</p>
-</footer>
+<?php include '../../includes/footer.php'; ?>
 </body>
 </html>

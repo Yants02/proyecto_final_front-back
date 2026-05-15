@@ -76,7 +76,7 @@ try {
                                         <td><strong>#<?php echo $row['id']; ?></strong> <input type="hidden" name="id" value="<?php echo $row['id']; ?>"></td>
                                         <td><input type="text" name="nuevo-nombre" value="<?php echo $row['nombre']; ?>" class="input-edit"></td>
                                         <td><input type="number" step="0.01" name="nuevo-precio" value="<?php echo $row['precio_venta']; ?>" class="input-edit"></td>
-                                        <td><?php echo $row['stock']; ?> <input type="hidden" name="stock" value="<?php echo $row['stock']; ?>"></td>
+                                        <td><input type="number" name="stock" value="<?php echo $row['stock']; ?>" class="input-edit"></td>
                                         <td>
                                             <button type="submit" class="btn-guardar">Guardar</button>
                                             <a href="productos.php" class="btn-cancelar">Cancelar</a>
@@ -108,9 +108,7 @@ try {
         </section>
     </main>
 
-    <footer class="footer">
-        <p>2026 - Panel de Control de Inventario - IFTS N° 4</p>
-    </footer>
+    <?php include '../../includes/footer.php'; ?>
 
 </body>
 </html>

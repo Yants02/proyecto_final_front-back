@@ -1,6 +1,6 @@
 <?php
 include '../../config/conexion.php';
-
+include '../../includes/header_index.php';
 $ruta_base = '../../'; 
 include '../includes/auth_check.php';
 include '../includes/header_index.php';
@@ -129,8 +129,6 @@ try {
         </section>
     </main>
 
-    <footer class="footer">
-        <p>2026 - Control de Accesos - Sistema de Gestión IFTS 4</p>
-    </footer>
+    <?php include '../../includes/footer.php'; ?>
 </body>
 </html>
