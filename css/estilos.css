@@ -314,6 +314,26 @@ button,
     margin-top: 10px;
 }
 
+
+/* Checkbox */
+.campo-cb {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 8px;
+}
+
+.campo-cb label {
+    color: #CAD5E2;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#cb-sesion {
+    accent-color: #50A2FF;
+    border-color: #50A2FF;
+}
+
 #btn-login, #btn-login-submit {
     width: 100%;
     margin-top: 20px;

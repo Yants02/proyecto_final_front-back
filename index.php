@@ -1,5 +1,32 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE){
+    session_start();
+}
+
+if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['rm_token'])) {
+    include 'php/config/conexion.php';
+
+    $token = $_COOKIE['rm_token'];
+
+    $sql = "SELECT id, nombre, rol FROM usuarios WHERE sesion_token = :token LIMIT 1";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':token' => $token]);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($usuario) {
+        $_SESSION['usuario_id'] = $usuario['id'];
+        $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['rol'] = $usuario['rol'];
+    } else {
+        setcookie('rm_token', '', time() - 3600, "/");
+    }
+}
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $ruta_base = ''; 
 include 'php/includes/header_index.php';
 ?>
@@ -22,6 +49,10 @@ include 'php/includes/header_index.php';
                     </ul>
                 </div>
             </article>
+            <form action="php/acciones/logout.php" method="POST">
+                <button type="submit" class="btn-logout">Cerrar Sesion</button>
+
+            </form>
         </section>
 
     </main>
