@@ -330,6 +330,11 @@ button,
     background-color: #50A2FF;
 }
 
+.links-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .volver-link {
     margin-top: 25px;
 }
@@ -344,6 +349,8 @@ button,
 .volver-link a:hover {
     color: #50A2FF;
 }
+
+
 
 .bienvenida, .info-proyecto {
     background-color: #0F182C;

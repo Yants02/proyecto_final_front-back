@@ -15,7 +15,7 @@
                 <h1>Kiosko Manager</h1>
                 <h3>Registrarse</h3>
             </div>
-            <form action="index.php" method="GET" class="formulario">
+            <form action="php/crud/usuarios/guardar_usuario.php" method="POST" class="formulario">
                 <div class="campo">
                     <label for="nombre">Nombre Completo:</label>
                     <input type="text" name="nombre" id="nombre" placeholder="Juan Andres Yotti">
@@ -44,13 +44,17 @@
                 </div>
 
                 <button type="submit" class="btn-guardar" id="btn-login-submit">
-                    Entrar al Sistema
+                    Registrarme
                 </button>
             </form>
-
-            <p class="volver-link">
-                <a href="onepage.php">← Volver a la página principal</a>
-            </p>
+            <div class="links-container">
+                <p class="volver-link">
+                    <a href="onepage.php">← Volver a la página principal</a>
+                </p>
+                <p class="volver-link">
+                    <a href="login.php">Iniciar Sesión →</a>
+                </p>
+            </div>
             
         </div>
     </div>

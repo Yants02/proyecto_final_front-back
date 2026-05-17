@@ -30,9 +30,15 @@
                 </button>
             </form>
 
-            <p class="volver-link">
-                <a href="onepage.php">← Volver a la página principal</a>
-            </p>
+            <div class="links-container">
+                <p class="volver-link">
+                    <a href="onepage.php">← Volver a la página principal</a>
+                </p>
+                
+                <p class="volver-link" >
+                    <a href="register.php" class="link-a-registrar">Registrarme →</a>
+                </p>
+            </div>
         </div>
     </div>
 </body>

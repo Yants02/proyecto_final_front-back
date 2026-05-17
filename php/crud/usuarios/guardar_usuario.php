@@ -2,8 +2,8 @@
     include '../../config/conexion.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST['username'];
-        $pass = $_POST['pass'];
+        $nombre = $_POST['nombre'];
+        $pass = $_POST['password'];
         $email = $_POST['email'];
         $rol = $_POST['rol'];
         
@@ -15,13 +15,14 @@
             $pass_hashed = password_hash($pass, PASSWORD_BCRYPT);
 
             $stmt -> execute([
-                ':nombre' => $username,
+                ':nombre' => $nombre,
                 ':email' => $email,
                 ':password' => $pass_hashed,
                 ':rol' => $rol
             ]);
 
-            header("Location: usuarios.php?mensaje=registrado");
+            header("Location: ../../../index.php?mensaje=registrado");
+            exit();
 
         } catch (PDOException $e) {
             echo "Error al guardar el usuario: " . $e -> getMessage();
