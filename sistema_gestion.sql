@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2026 a las 10:38:41
+-- Tiempo de generación: 17-05-2026 a las 17:42:30
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -170,16 +170,20 @@ CREATE TABLE `usuarios` (
   `email` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
   `rol` enum('administrador','ventas') NOT NULL DEFAULT 'ventas',
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `sesion_token` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol`, `created_at`) VALUES
-(1, 'Juan Yotti', 'jy2002@gmail.com', '20enero02', 'administrador', '2026-04-22 20:46:12'),
-(2, 'Pablo Yotti', 'pabloyotti@gmail.com', '$2y$10$9U.pdIdaYk0B1B5GiE6YyO9dxsNeJYKNIU7bzMYBigKFAoDqxmO76', 'ventas', '2026-04-22 20:52:17');
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol`, `created_at`, `sesion_token`) VALUES
+(1, 'Juan Yotti', 'jy2002@gmail.com', '20enero02', 'administrador', '2026-04-22 20:46:12', NULL),
+(2, 'Pablo Yotti', 'pabloyotti@gmail.com', '$2y$10$9U.pdIdaYk0B1B5GiE6YyO9dxsNeJYKNIU7bzMYBigKFAoDqxmO76', 'ventas', '2026-04-22 20:52:17', NULL),
+(4, 'Belen Yotti', 'belu@gmail.com', '$2y$10$CkGDccbAQVkav/OKACZcLud0wIms9sp8hTfXtKCRIjSj5miLHehCi', 'ventas', '2026-05-17 09:19:34', NULL),
+(5, 'Andres Yotti', 'andres@gmail.com', '$2y$10$WCHcFuROl5iK8lpnYA4hSeRl6sgxWDX47g/W9iZD5yuYz6qunfMIG', 'administrador', '2026-05-17 09:25:55', NULL),
+(6, 'checkbox test', 'checkbox@gmail.com', '$2y$10$R1qYPfK7/pIWyk0rOSsNj.yAoTGeduffGFSg78BpKqoRbYR/g/5dK', 'ventas', '2026-05-17 11:45:59', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -265,7 +269,7 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
