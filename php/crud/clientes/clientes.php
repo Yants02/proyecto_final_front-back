@@ -1,11 +1,25 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
 include '../../config/conexion.php';
 $ruta_base = '../../../'; 
 include '../../includes/header_index.php';
 
 try {
-    $query = "SELECT * FROM clientes ORDER BY id DESC";
-    $resultado = $conn->query($query);
+    $usuario_id = $_SESSION['usuario_id'];
+    $sql = "SELECT id, dni, nombre, email FROM clientes WHERE usuario_id = :usuario_id";
+    $stmt = $conn->prepare($sql);
+    $stmt-> execute([':usuario_id' => $usuario_id]);
+    $clientes = $stmt;
 } catch (PDOException $e) {
     echo "Error al consultar clientes: " . $e->getMessage();
 }
@@ -80,7 +94,7 @@ try {
                 $id_a_editar = isset($_GET['editar_id']) ? (int)$_GET['editar_id'] : null;
                 ?>
                 <tbody>
-                    <?php while ($row = $resultado->fetch()): ?>
+                    <?php while ($row = $clientes->fetch()): ?>
                         <tr>
                             <!-- Usamos comparación estricta (!== null y ===) para que no se confunda con el ID 0 -->
                             <?php if ($id_a_editar !== null && $id_a_editar === (int)$row['id']): ?>

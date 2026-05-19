@@ -1,13 +1,31 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
 include '../../config/conexion.php';
 $ruta_base = '../../../'; 
 include '../../includes/header_index.php';
 $resultado = false; 
+$error_bd = null;
+$proveedores = [];
 
 try {
-    $query = "SELECT * FROM proveedores ORDER BY id DESC";
-    $resultado = $conn->query($query);
+    $usuario_id = $_SESSION['usuario_id'];
+    $sql = "SELECT id, nombre, telefono, email, direccion FROM proveedores WHERE usuario_id = :usuario_id";
+    $stmt = $conn->prepare($sql);
+    $stmt -> execute([':usuario_id' => $usuario_id]);
+    $proveedores = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+    $resultado = true;
 } catch (PDOException $e) {
+    $resultado = false;
     $error_bd = "Fallo en BD: " . $e->getMessage();
 }
 ?>
@@ -83,7 +101,7 @@ try {
 
                     <tbody>
                         <?php if ($resultado): ?>
-                            <?php while ($row = $resultado->fetch()): ?>
+                            <?php foreach ($proveedores as $row): ?>
                                 <tr>
                                     <?php if ($id_a_editar !== null && $id_a_editar === (int)$row['id']): ?>
                                         <form action="actualizar_proveedores.php" method="POST">
@@ -113,7 +131,7 @@ try {
                                         </td>
                                     <?php endif; ?>
                                 </tr>
-                            <?php endwhile; ?>
+                            <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
                                 <td colspan="6" style="text-align: center;">No hay datos disponibles o error de conexión.</td>

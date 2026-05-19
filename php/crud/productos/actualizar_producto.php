@@ -1,4 +1,12 @@
 <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (!isset($_SESSION['usuario_id'])) {
+        die("Acceso denegado.");
+    }
+    
     include("../../config/conexion.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

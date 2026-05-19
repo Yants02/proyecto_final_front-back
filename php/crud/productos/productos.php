@@ -1,11 +1,25 @@
 <?php
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Si no está logueado, al login
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 include '../../config/conexion.php';
 $ruta_base = '../../../'; 
 include '../../includes/header_index.php';
 
 try {
-    $query = "SELECT * FROM productos ORDER BY id DESC";
-    $resultado = $conn->query($query);
+    $usuario_id = $_SESSION['usuario_id'];
+
+    $sql = "SELECT id, nombre, precio_venta, stock FROM productos WHERE usuario_id = :usuario_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([':usuario_id' => $usuario_id]);
+    $productos = $stmt;
 } catch (PDOException $e) {
     echo "Error en el sistema: " . $e->getMessage();
 }
@@ -69,7 +83,7 @@ try {
                     ?>
 
                     <tbody>
-                        <?php while ($row = $resultado->fetch()): ?>
+                        <?php while ($row = $productos->fetch()): ?>
                             <tr>
                                 <?php if ($id_a_editar == $row['id']): ?>>
                                     <form action="actualizar_producto.php" method="POST">

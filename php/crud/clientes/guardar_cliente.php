@@ -1,5 +1,14 @@
 <?php
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['usuario_id'])) {
+    die("Acceso denegado.");
+}
+
+
 include '../../config/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -7,11 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dni = $_POST['dni'];
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
+    $usuario_id = $_SESSION['usuario_id'];
 
     try {
-        $sql = "INSERT INTO clientes (dni, nombre, email) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO clientes (dni, nombre, email, usuario_id) VALUES (:dni, :nombre, :email, :usuario_id)";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$dni, $nombre, $email]);
+        $stmt->execute([
+            ':dni' => $dni, 
+            ':nombre' => $nombre, 
+            ':email' => $email,
+            ':usuario_id' => $usuario_id
+        ]);
 
         // Si salió bien, volvemos con mensaje de éxito
         header("Location: clientes.php?mensaje=creado");
