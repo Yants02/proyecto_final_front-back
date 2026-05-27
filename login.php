@@ -56,15 +56,15 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['rm_token'])) {
                 <img src="img/icono-tienda.svg" alt="Logo">
                 <h1>Kiosko Manager</h1>
             </div>
-            <form action="php/acciones/procesar_login.php" method="POST" class="formulario">
+            <form action="php/acciones/procesar_login.php" method="POST" class="formulario" id="formLogin" novalidate>
                 <div class="campo">
                     <label>Correo Electrónico:</label>
-                    <input type="email" name="email" placeholder="ejemplo@correo.com">
+                    <input type="email" name="email" id="inputEmail" placeholder="ejemplo@correo.com">
                 </div>
 
                 <div class="campo">
                     <label>Contraseña:</label>
-                    <input type="password" name="password" placeholder="••••••••">
+                    <input type="password" name="password" id="inputPassword" placeholder="••••••••">
                 </div>
 
                 <div class="campo-cb" >
@@ -88,5 +88,6 @@ if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['rm_token'])) {
             </div>
         </div>
     </div>
+    <script src="js/validaciones.js?v=3"></script>
 </body>
 </html>

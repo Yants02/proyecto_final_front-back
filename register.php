@@ -15,7 +15,7 @@
                 <h1>Kiosko Manager</h1>
                 <h3>Registrarse</h3>
             </div>
-            <form action="php/crud/usuarios/guardar_usuario.php" method="POST" class="formulario">
+            <form action="php/crud/usuarios/guardar_usuario.php" method="POST" class="formulario" id="formRegister" novalidate>
                 <div class="campo">
                     <label for="nombre">Nombre Completo:</label>
                     <input type="text" name="nombre" id="nombre" placeholder="Juan Andres Yotti">
@@ -58,5 +58,6 @@
             
         </div>
     </div>
+<script src="js/validaciones.js?v=3"></script>
 </body>
 </html>
