@@ -4,6 +4,10 @@ include '../../config/conexion.php';
 $ruta_base = '../../../';
 include '../../includes/header_index.php';
 
+
+$alerta_error = "";
+
+
 // 1. Si el usuario toca "Cancelar" o "Eliminar Orden", vaciamos la memoria y volvemos a compras.
 if (isset($_GET['accion']) && $_GET['accion'] == 'limpiar') {
     unset($_SESSION['venta_registro']);
@@ -46,27 +50,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (!empty($id_p) && $cant > 0) {
             // Buscamos el nombre del producto seleccionado para guardarlo
-            $stmt_prod_info = $conn->prepare("SELECT nombre, precio_venta FROM productos WHERE id = ?");
+            $stmt_prod_info = $conn->prepare("SELECT nombre, precio_venta, stock FROM productos WHERE id = ?");
             $stmt_prod_info->execute([$id_p]);
             $producto_info = $stmt_prod_info->fetch(PDO::FETCH_ASSOC);
 
             if ($producto_info) {
-                $nombre_p = $producto_info['nombre'];
-                $prec = $producto_info['precio_venta']; // Tomamos el precio del catálogo
+                // Calculamos cuánto lleva acumulado de ESTE producto en el carrito actual
+                $cant_en_carrito = 0;
+                foreach ($_SESSION['venta_registro'] as $item) {
+                    if ($item['id'] == $id_p) {
+                        $cant_en_carrito += $item['cantidad'];
+                    }
+                }
 
-                // Guardamos el producto en la memoria (sesión)
-                $_SESSION['venta_registro'][] = [
-                    'id' => $id_p,
-                    'nombre' => $nombre_p,
-                    'cantidad' => $cant,
-                    'precio' => $prec,
-                    'subtotal' => $cant * $prec
-                ];
+                // Si lo que ya tiene + lo que quiere agregar supera el stock físico disponible
+                if (($cant_en_carrito + $cant) > $producto_info['stock']) {
+                    $alerta_error = "No podés agregar esa cantidad. Stock disponible: " . $producto_info['stock'] . " unidades.";
+                } else {
+                    $nombre_p = $producto_info['nombre'];
+                    $prec = $producto_info['precio_venta'];
+
+                    $_SESSION['venta_registro'][] = [
+                        'id' => $id_p,
+                        'nombre' => $nombre_p,
+                        'cantidad' => $cant,
+                        'precio' => $prec,
+                        'subtotal' => $cant * $prec
+                    ];
+                    header("Location: guardar_venta.php");
+                    exit();
+                }
             }
         }
         // Recargamos la página para evitar que el formulario se reenvíe si tocan F5
-        header("Location: guardar_venta.php");
-        exit();
+        // header("Location: guardar_venta.php");
+        // exit();
     }
 
     // ACCIÓN B: Crear la orden final en la base de datos
@@ -112,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit();
             } catch (Exception $e) {
                 $conn->rollBack();
-                echo "Error: " . $e->getMessage();
+                $alerta_error = $e->getMessage();
             }
         }
     }
@@ -123,6 +141,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <section class="contenido" style="max-width: 850px; margin: 0 auto;">
         <article>
             <h2 class="texto-primario">Nueva Orden: <?php echo htmlspecialchars($nombre_cliente); ?></h2>
+            <?php if (!empty($alerta_error)): ?>
+                <div style="background: #ff7675; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold;">
+                    <?php echo htmlspecialchars($alerta_error); ?>
+                </div>
+            <?php endif; ?>
 
             <form action="guardar_venta.php" method="POST" style="margin-bottom: 30px;">
                 <input type="hidden" name="accion" value="agregar_producto">

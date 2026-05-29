@@ -84,7 +84,7 @@ try {
                                 $<?php echo number_format($row['total'], 2, ',', '.'); ?>
                             </td>
                             <td>
-                                <a href="detalle_venta.php?id=<?php echo $row['id']; ?>" class="btn-guardar" style="padding: 6px 12px; font-size: 13px; text-decoration: none;">Ver Detalle</a>
+                                <a href="detail_venta.php?id=<?php echo $row['id']; ?>" class="btn-guardar" style="padding: 6px 12px; font-size: 13px; text-decoration: none;">Ver Detalle</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
