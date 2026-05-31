@@ -52,10 +52,10 @@ try {
                         <input type="number" step="0.01" name="precio_venta" placeholder="0.00" required>
                     </div>
 
-                    <div class="campo">
+                    <!-- <div class="campo">
                         <label>Stock Inicial:</label>
                         <input type="number" name="stock" placeholder="Cantidad disponible" required>
-                    </div>
+                    </div> -->
 
                     <div style="margin-top: 10px;">
                         <button type="submit" class="btn-guardar">Guardar Producto</button>
@@ -98,7 +98,7 @@ try {
                                         <td><strong>#<?php echo $row['id']; ?></strong> <input type="hidden" name="id" value="<?php echo $row['id']; ?>"></td>
                                         <td><input type="text" name="nuevo-nombre" value="<?php echo $row['nombre']; ?>" class="input-edit"></td>
                                         <td><input type="number" step="0.01" name="nuevo-precio" value="<?php echo $row['precio_venta']; ?>" class="input-edit"></td>
-                                        <td><input type="number" name="stock" value="<?php echo $row['stock']; ?>" class="input-edit"></td>
+                                        <td><strong><?php echo $row['stock']; ?></strong> <input type="hidden" name="stock" value="<?php echo $row['stock']; ?>" class="input-edit"></td>
                                         <td>
                                             <button type="submit" class="btn-guardar">Guardar</button>
                                             <a href="productos.php" class="btn-cancelar">Cancelar</a>

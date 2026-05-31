@@ -14,18 +14,18 @@ include '../../config/conexion.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre'];
     $precio = $_POST['precio_venta'];
-    $stock  = $_POST['stock'];
+    // $stock  = $_POST['stock'];
     $usuario_id = $_SESSION['usuario_id'];
 
     try {
-        $sql = "INSERT INTO productos (nombre, precio_venta, stock, usuario_id) 
-                VALUES (:nombre, :precio, :stock, :usuario_id)";
+        $sql = "INSERT INTO productos (nombre, precio_venta, usuario_id) 
+                VALUES (:nombre, :precio, :usuario_id)";
         
         $stmt = $conn->prepare($sql);
         $stmt->execute([
             ':nombre' => $nombre,
             ':precio' => $precio,
-            ':stock'  => $stock,
+            // ':stock'  => $stock,
             ':usuario_id' => $usuario_id
         ]);
         header("Location: productos.php?mensaje=registrado");
