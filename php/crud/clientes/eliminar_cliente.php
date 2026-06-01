@@ -1,5 +1,6 @@
 <?php
 include '../../config/conexion.php';
+include __DIR__ . '/../../config/verificar_administrador.php';
 
 if (isset($_POST['id'])) {
     $id = $_POST['id'];

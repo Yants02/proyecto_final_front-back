@@ -3,6 +3,7 @@ session_start();
 include '../../config/conexion.php';
 $ruta_base = '../../../';
 include '../../includes/header_index.php';
+include __DIR__ . '/../../config/verificar_administrador.php';
 
 try {
     $query = "SELECT * FROM compras ORDER BY id DESC";

@@ -4,6 +4,7 @@ include '../../includes/header_index.php';
 $ruta_base = '../../'; 
 include '../includes/auth_check.php';
 include '../includes/header_index.php';
+include __DIR__ . '/../../config/verificar_administrador.php';
 
 try {
     $query = "SELECT * FROM usuarios ORDER BY id DESC";

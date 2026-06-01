@@ -3,6 +3,7 @@ session_start();
 include '../../config/conexion.php';
 $ruta_base = '../../../';
 include '../../includes/header_index.php';
+include __DIR__ . '/../../config/verificar_administrador.php';
 
 // 1. Si el usuario toca "Cancelar" o "Eliminar Orden", vaciamos la memoria y volvemos a compras.
 if (isset($_GET['accion']) && $_GET['accion'] == 'limpiar') {

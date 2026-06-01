@@ -96,4 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("🎉 ¡Usuario registrado con éxito! Ya podés iniciar sesión.")
         window.history.replaceState({}, document.title, window.location.pathname)
     }
+
+    // usuario sin permisos quiso ingresar la url manualmente
+    if (parametrosURL.get("error") === "no_autorizado") {
+        alert("⛔ Acceso denegado: No tenés permisos de Administrador para ingresar a ese módulo.");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
 })

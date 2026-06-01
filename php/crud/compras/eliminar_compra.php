@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../../config/conexion.php';
+include __DIR__ . '/../../config/verificar_administrador.php';
 
 // Validamos si llega el ID (Aceptamos tanto POST como GET por compatibilidad con tu formulario)
 $id_compra = $_POST['id'] ?? $_GET['id'] ?? null;

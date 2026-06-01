@@ -1,4 +1,5 @@
 <?php 
+include __DIR__ . '/../../config/verificar_administrador.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

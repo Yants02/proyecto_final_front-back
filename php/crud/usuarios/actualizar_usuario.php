@@ -1,4 +1,6 @@
 <?php
+    include __DIR__ . '/../../config/verificar_administrador.php';
+
     include("../../config/conexion.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
