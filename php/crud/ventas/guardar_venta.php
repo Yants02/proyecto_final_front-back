@@ -8,7 +8,7 @@ include '../../includes/header_index.php';
 $alerta_error = "";
 
 
-// 1. Si el usuario toca "Cancelar" o "Eliminar Orden", vaciamos la memoria y volvemos a compras.
+// Cancelar o eliminar venta
 if (isset($_GET['accion']) && $_GET['accion'] == 'limpiar') {
     unset($_SESSION['venta_registro']);
     unset($_SESSION['venta_temp']);
@@ -16,12 +16,12 @@ if (isset($_GET['accion']) && $_GET['accion'] == 'limpiar') {
     exit();
 }
 
-// 2. Inicializamos el carrito en la sesión si no existe
+// Carrito 
 if (!isset($_SESSION['venta_registro'])) {
     $_SESSION['venta_registro'] = [];
 }
 
-// 3. Guardamos o recuperamos el proveedor en la sesión para que no se pierda al recargar la página
+// Guardar proveedor
 if (isset($_GET['id_cli'])) {
     $_SESSION['venta_temp'] = $_GET['id_cli'];
 }
@@ -35,27 +35,23 @@ if ($id_cliente) {
     if ($cli) $nombre_cliente = $cli['nombre'];
 }
 
-// Traemos los productos para el select
 $stmt_prod = $conn->query("SELECT id, nombre, precio_venta FROM productos ORDER BY nombre ASC");
 $productos = $stmt_prod->fetchAll(PDO::FETCH_ASSOC);
 
-// 4. Procesamos los formularios (Agregar producto o Confirmar orden)
+// Agregar producto - confirmar venta
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // ACCIÓN A: Agregar un producto al carrito temporal
+
     if (isset($_POST['accion']) && $_POST['accion'] == 'agregar_producto') {
         $id_p = $_POST['producto'];
         $cant = $_POST['cantidad'];
-        // $prec = $_POST['precio'];
 
         if (!empty($id_p) && $cant > 0) {
-            // Buscamos el nombre del producto seleccionado para guardarlo
             $stmt_prod_info = $conn->prepare("SELECT nombre, precio_venta, stock FROM productos WHERE id = ?");
             $stmt_prod_info->execute([$id_p]);
             $producto_info = $stmt_prod_info->fetch(PDO::FETCH_ASSOC);
 
             if ($producto_info) {
-                // Calculamos cuánto lleva acumulado de ESTE producto en el carrito actual
                 $cant_en_carrito = 0;
                 foreach ($_SESSION['venta_registro'] as $item) {
                     if ($item['id'] == $id_p) {
@@ -63,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                 }
 
-                // Si lo que ya tiene + lo que quiere agregar supera el stock físico disponible
                 if (($cant_en_carrito + $cant) > $producto_info['stock']) {
                     $alerta_error = "No podés agregar esa cantidad. Stock disponible: " . $producto_info['stock'] . " unidades.";
                 } else {
@@ -82,17 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
         }
-        // Recargamos la página para evitar que el formulario se reenvíe si tocan F5
-        // header("Location: guardar_venta.php");
-        // exit();
     }
 
-    // ACCIÓN B: Crear la orden final en la base de datos
+    // Confirmar venta
     if (isset($_POST['accion']) && $_POST['accion'] == 'crear_orden') {
         if (!empty($_SESSION['venta_registro'])) {
             $conn->beginTransaction();
             try {
-                // Guardamos la compra general
                 $total_final = $_POST['total_final'];
                 $sql = "INSERT INTO ventas (id_cliente, nombre_cliente, fecha, total) VALUES (?, ?, NOW(), ?)";
                 $stmt = $conn->prepare($sql);
@@ -100,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $nuevo_id = $conn->lastInsertId();
 
-                // Guardamos los detalles leyendo lo que hay en la sesión y RESTAMOS STOCK
                 $sql_det = "INSERT INTO detalle_ventas (id_venta, id_producto, nombre_producto, cantidad, precio_venta) VALUES (?, ?, ?, ?, ?)";
                 $stmt_det = $conn->prepare($sql_det);
 
@@ -108,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt_stock = $conn->prepare($sql_stock);
 
                 foreach ($_SESSION['venta_registro'] as $item) {
-                    // Insertamos renglón
                     $stmt_det->execute([
                         $nuevo_id,
                         $item['id'],
@@ -117,13 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $item['precio']
                     ]);
 
-                    // Descontamos del stock físico
                     $stmt_stock->execute([$item['cantidad'], $item['id']]);
                 }
 
                 $conn->commit();
 
-                // Vaciamos la memoria temporal y mandamos al detalle
                 unset($_SESSION['venta_registro']);
                 unset($_SESSION['venta_temp']);
                 header("Location: detail_venta.php?id=" . $nuevo_id);
@@ -156,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <select name="producto" class="campo-input" required>
                             <option value="">-- Elegir producto --</option>
                             <?php foreach ($productos as $prod): ?>
-                                <option value="<?php echo $prod['id']; ?>"><?php echo $prod['nombre']; ?></option>
+                                <option value="<?php echo $prod['id']; ?>"><?php echo htmlspecialchars($prod['nombre']) . " ($" . number_format($prod['precio_venta'], 2, ',', '.') . ")"; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

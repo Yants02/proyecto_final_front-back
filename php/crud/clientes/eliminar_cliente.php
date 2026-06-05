@@ -18,7 +18,6 @@ if (isset($_POST['id'])) {
         die("Error al eliminar: " . $e->getMessage());
     }
 } else {
-    // Si no hay ID, volvemos igual
     header("Location: clientes.php");
     exit();
 }

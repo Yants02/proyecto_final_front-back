@@ -8,7 +8,6 @@
         $camposAActualizar = array();
         $valores = array();
 
-        //Construcción dinámica con marcadores
         if (!empty($_POST['nuevo-nombre'])){
             $camposAActualizar[] = "nombre = ?";
             $valores[] = $_POST['nuevo-nombre'];
@@ -31,16 +30,12 @@
 
         if (count($camposAActualizar) > 0) {
             try {
-                //Unimos los campos: 
                 $datos = implode(", ", $camposAActualizar);
 
                 $sql = "UPDATE usuarios SET $datos WHERE id = ?";
                 $stmt = $conn->prepare($sql);
                 $valores[] = $id;
                 $stmt->execute($valores);
-
-                // En PDO, rowCount() nos dice si se cambió algo
-                // Usamos >= 0 porque si mandan los mismos datos, no cuenta como error
                 header("Location: usuarios.php?mensaje=actualizado");
                 exit();
 

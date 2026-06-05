@@ -49,9 +49,6 @@ try {
                 </div>
                 
                 <div class="flex-gap-10" style="margin-top: 0;">
-                    <!-- <a href="../../acciones/generar_orden_compra.php?id=<?php echo $venta['id']; ?>" target="_blank" class="btn-guardar">
-                        Imprimir Orden (PDF)
-                    </a> -->
                     <a href="eliminar_venta.php?id=<?php echo $venta['id']; ?>" class="btn-borrar" onclick="return confirm('¿Estás seguro de que querés eliminar toda esta orden? Esta acción no se puede deshacer.');">
                         Eliminar Orden
                     </a>

@@ -16,7 +16,6 @@ include __DIR__ . '/../../config/verificar_administrador.php';
         $camposAActualizar = array();
         $valores = array();
 
-        //Construcción dinámica con marcadores
         if (!empty($_POST['nuevo-nombre'])){
             $camposAActualizar[] = "nombre = ?";
             $valores[] = $_POST['nuevo-nombre'];
@@ -34,7 +33,6 @@ include __DIR__ . '/../../config/verificar_administrador.php';
 
         if (count($camposAActualizar) > 0) {
             try {
-                //Unimos los campos: nombre = ?, stock = ?
                 $datos = implode(", ", $camposAActualizar);
 
                 $sql = "UPDATE productos SET $datos WHERE id = ?";
@@ -42,8 +40,6 @@ include __DIR__ . '/../../config/verificar_administrador.php';
                 $valores[] = $id;
                 $stmt->execute($valores);
 
-                // En PDO, rowCount() nos dice si se cambió algo
-                // Usamos >= 0 porque si mandan los mismos datos, no cuenta como error
                 header("Location: productos.php?mensaje=actualizado");
                 exit();
 

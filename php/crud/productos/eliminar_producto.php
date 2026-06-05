@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Control de seguridad: debe estar logueado
+// Verificar usuario logueado
 if (!isset($_SESSION['usuario_id'])) {
     die("Acceso denegado.");
 }
@@ -32,7 +32,6 @@ if (!isset($_SESSION['usuario_id'])) {
             exit();
 
         } catch (PDOException $e) {
-            // Si hay un error de base de datos cae aca
             echo "Error crítico: " . $e->getMessage();
         }
     }

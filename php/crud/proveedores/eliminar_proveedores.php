@@ -18,7 +18,6 @@
             exit();
 
         } catch (PDOException $e) {
-            // Si hay un error de base de datos cae aca
             echo "Error crítico: " . $e->getMessage();
         }
     }

@@ -96,10 +96,6 @@ try {
                             </td>
                             <td>
                                 <a href="detail_compra.php?id=<?php echo $row['id']; ?>" class="btn-guardar" style="padding: 6px 12px; font-size: 13px; text-decoration: none;">Ver Detalle</a>
-                                <form action="eliminar_compra.php" method="POST" style="display:inline;">
-                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                    <button type="submit" class="btn-borrar">X</button>
-                                </form>
                             </td>
                         </tr>
                     <?php endwhile; ?>

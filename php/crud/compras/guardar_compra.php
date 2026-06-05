@@ -5,7 +5,7 @@ $ruta_base = '../../../';
 include '../../includes/header_index.php';
 include __DIR__ . '/../../config/verificar_administrador.php';
 
-// 1. Si el usuario toca "Cancelar" o "Eliminar Orden", vaciamos la memoria y volvemos a compras.
+// Cancelar o eliminar orden
 if (isset($_GET['accion']) && $_GET['accion'] == 'limpiar') {
     unset($_SESSION['carrito_orden']);
     unset($_SESSION['prov_temp']);
@@ -13,17 +13,17 @@ if (isset($_GET['accion']) && $_GET['accion'] == 'limpiar') {
     exit();
 }
 
-// 2. Inicializamos el carrito en la sesión si no existe
+// Carrito 
 if (!isset($_SESSION['carrito_orden'])) {
     $_SESSION['carrito_orden'] = [];
 }
 
-// 3. Guardamos o recuperamos el proveedor en la sesión para que no se pierda al recargar la página
+// Guardar proveedor
 if (isset($_GET['id_prov'])) {
     $_SESSION['prov_temp'] = $_GET['id_prov'];
 }
 $id_proveedor = $_SESSION['prov_temp'] ?? null;
-$nombre_proveedor = 'Proveedor Desconocido';
+$nombre_proveedor = 'Proveedor desconocido';
 
 if ($id_proveedor) {
     $stmt = $conn->prepare("SELECT nombre FROM proveedores WHERE id = :id");
@@ -32,26 +32,23 @@ if ($id_proveedor) {
     if ($prov) $nombre_proveedor = $prov['nombre'];
 }
 
-// Traemos los productos para el select
+// Productos 
 $stmt_prod = $conn->query("SELECT id, nombre FROM productos ORDER BY nombre ASC");
 $productos = $stmt_prod->fetchAll(PDO::FETCH_ASSOC);
 
-// 4. Procesamos los formularios (Agregar producto o Confirmar orden)
+// Agregar producto - confirmar orden
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // ACCIÓN A: Agregar un producto al carrito temporal
     if (isset($_POST['accion']) && $_POST['accion'] == 'agregar_producto') {
         $id_p = $_POST['producto'];
         $cant = $_POST['cantidad'];
         $prec = $_POST['precio'];
 
         if (!empty($id_p) && $cant > 0 && $prec > 0) {
-            // Buscamos el nombre del producto seleccionado para guardarlo
             $stmt_nom = $conn->prepare("SELECT nombre FROM productos WHERE id = ?");
             $stmt_nom->execute([$id_p]);
             $nombre_p = $stmt_nom->fetchColumn();
 
-            // Guardamos el producto en la memoria (sesión)
             $_SESSION['carrito_orden'][] = [
                 'id' => $id_p,
                 'nombre' => $nombre_p,
@@ -60,17 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'subtotal' => $cant * $prec
             ];
         }
-        // Recargamos la página para evitar que el formulario se reenvíe si tocan F5
         header("Location: guardar_compra.php");
         exit();
     }
 
-    // ACCIÓN B: Crear la orden final en la base de datos
+    // Confirmar orden
     if (isset($_POST['accion']) && $_POST['accion'] == 'crear_orden') {
         if (!empty($_SESSION['carrito_orden'])) {
             $conn->beginTransaction();
             try {
-                // Guardamos la compra general
                 $total_final = $_POST['total_final'];
                 $sql = "INSERT INTO compras (id_proveedor, nombre_proveedor, fecha, total) VALUES (?, ?, NOW(), ?)";
                 $stmt = $conn->prepare($sql);
@@ -78,11 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $nuevo_id = $conn->lastInsertId();
 
-                // Guardamos los detalles leyendo lo que hay en la sesión
                 $sql_det = "INSERT INTO detalle_compras (id_compra, id_producto, nombre_producto, cantidad, precio_costo) VALUES (?, ?, ?, ?, ?)";
                 $stmt_det = $conn->prepare($sql_det);
 
-                // NUEVO: Consulta para incrementar las existencias en el catálogo
                 $sql_stock = "UPDATE productos SET stock = stock + ? WHERE id = ?";
                 $stmt_stock = $conn->prepare($sql_stock);
 
@@ -95,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $item['precio']
                     ]);
 
-                    // 2. NUEVO: Sumamos la cantidad comprada al stock actual del producto
                     $stmt_stock->execute([
                         $item['cantidad'],
                         $item['id']
@@ -104,7 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $conn->commit();
 
-                // Vaciamos la memoria temporal y mandamos al detalle
                 unset($_SESSION['carrito_orden']);
                 unset($_SESSION['prov_temp']);
                 header("Location: detail_compra.php?id=" . $nuevo_id);
