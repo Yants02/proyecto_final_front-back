@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Expresión regular estándar para validar el formato de un email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // ==========================================
+    
     // 1. VALIDACIÓN PANTALLA DE LOGIN
-    // ==========================================
+    
     const formLogin = document.getElementById("formLogin")
 
     if (formLogin) {
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // NUEVO: Control de formato de email
+            // Control de formato de email
             if (!emailRegex.test(email)) {
                 evento.preventDefault()
                 alert("❌ El formato del correo electrónico no es válido. Ejemplo: usuario@correo.com")
@@ -29,9 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
-    // ==========================================
+   
     // 2. VALIDACIÓN PANTALLA DE REGISTRO
-    // ==========================================
     const formRegister = document.getElementById("formRegister")
     
     if (formRegister) {
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return; 
             }
 
-            // NUEVO: Control de formato de email
+            // Control de formato de email
             if (!emailRegex.test(email)) {
                 evento.preventDefault()
                 alert("❌ El formato del correo electrónico no es válido. Ejemplo: usuario@correo.com")
@@ -72,9 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
-    // ==========================================
-    // 3. CAPTURA ÚNICA DE PARÁMETROS URL (PHP -> JS)
-    // ==========================================
+   
     const parametrosURL = new URLSearchParams(window.location.search)
 
     if (parametrosURL.get("error") === "1") {

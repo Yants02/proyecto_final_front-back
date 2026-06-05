@@ -4,7 +4,7 @@ require_once('../config/conexion.php');
 require_once('../includes/tcpdf/tcpdf.php');
 
 try {
-    // Traemos absolutamente todas las compras para el reporte general
+    // Trae absolutamente todas las compras para el reporte general
     $query = "SELECT * FROM compras ORDER BY id DESC";
     $stmt = $conn->query($query);
     $compras = $stmt->fetchAll(PDO::FETCH_ASSOC);

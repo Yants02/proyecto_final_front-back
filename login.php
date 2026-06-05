@@ -3,36 +3,36 @@
     session_start();
 }
 
-// 1. Si ya tiene la sesión normal de PHP activa, lo mandamos al index directo
+// Si ya tiene la sesión normal de PHP activa, lo mandamos al index directo
 if (isset($_SESSION['usuario_id'])) {
     header("Location: index.php");
     exit();
 }
 
-// 2. Si NO tiene sesión pero SÍ tiene la cookie 'rm_token', intentamos loguearlo en segundo plano
+// Si NO tiene sesión pero SÍ tiene la cookie 'rm_token', intentamos loguearlo en segundo plano
 if (!isset($_SESSION['usuario_id']) && isset($_COOKIE['rm_token'])) {
-    // Como estás en la raíz, la ruta a la conexión es esta:
+    
     include 'php/config/conexion.php';
 
     $token = $_COOKIE['rm_token'];
 
-    // Buscamos al usuario por el token de la cookie
+    // Busca al usuario por el token de la cookie
     $sql = "SELECT id, nombre, rol FROM usuarios WHERE sesion_token = :token LIMIT 1";
     $stmt = $conn->prepare($sql);
     $stmt->execute([':token' => $token]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($usuario) {
-        // Token válido: Reconstruimos la sesión acá mismo
+        // Token válido
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['nombre'] = $usuario['nombre'];
         $_SESSION['rol'] = $usuario['rol'];
 
-        // Lo mandamos al index sin mostrar el formulario
+        // Lo manda al index sin mostrar el formulario
         header("Location: index.php");
         exit();
     } else {
-        // Si el token era viejo o inválido, limpiamos la cookie para no procesarla más
+        // Si el token era viejo o inválido, se limpia la cooki y no se muestra mas.
         setcookie('rm_token', '', time() - 3600, "/");
     }
 }

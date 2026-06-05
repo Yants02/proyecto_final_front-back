@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario_id'])) {
 include '../config/conexion.php';
 $usuario_id = $_SESSION['usuario_id'];
 
-// Capturamos el parámetro que viene en la URL. Si no viene nada, queda vacío.
+// Captura el parámetro que viene en la URL. Si no viene nada, queda vacío.
 $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : '';
 
 // Variables vacías que vamos a llenar dependiendo del tipo
@@ -59,14 +59,14 @@ switch ($tipo) {
         die("Tipo de exportación no válido o no especificado.");
 }
 
-// Empezamos a generar el archivo
+// Generar el archivo
 header('Content-Type: text/csv; charset=utf-8');
 header('Content-Disposition: attachment; filename=' . $nombre_archivo . '_' . date('Y-m-d') . '.csv');
 
 $salida = fopen('php://output', 'w');
 fprintf($salida, chr(0xEF).chr(0xBB).chr(0xBF));
 
-// Escribimos los títulos que se definieron en el switch
+
 fputcsv($salida, $titulos, ';');
 
 try {

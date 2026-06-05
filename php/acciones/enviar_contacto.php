@@ -1,10 +1,10 @@
 <?php
-// 1. Incluimos la conexión y la librería TCPDF
-// Como estamos en 'php/acciones/', subimos un nivel y entramos a 'config' e 'includes'
+// conexión y la librería TCPDF
+
 require_once('../config/conexion.php');
 require_once('../includes/tcpdf/tcpdf.php');
 
-// 2. Validamos que llegue un ID por la URL
+// Valida que llegue un ID por la URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     die("Error: No se proporcionó un ID de orden válido.");
 }
@@ -12,7 +12,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $id_compra = $_GET['id'];
 
 try {
-    // 3. Buscamos los datos generales de la compra
+    // Busca los datos generales de la compra
     $stmt_compra = $conn->prepare("SELECT * FROM compras WHERE id = :id");
     $stmt_compra->execute(['id' => $id_compra]);
     $compra = $stmt_compra->fetch(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ try {
         die("Error: La orden de compra no existe en el sistema.");
     }
 
-    // 4. Buscamos los ítems detallados de esa compra
+    // Busca los ítems detallados de esa compra
     $stmt_det = $conn->prepare("SELECT * FROM detalle_compras WHERE id_compra = :id");
     $stmt_det->execute(['id' => $id_compra]);
     $detalles = $stmt_det->fetchAll(PDO::FETCH_ASSOC);
@@ -51,11 +51,10 @@ $pdf->SetAutoPageBreak(TRUE, 15);
 // Añadimos la página
 $pdf->AddPage();
 
-// Formateamos la fecha para el PDF
+// Formatea la fecha para el PDF
 $fecha_pdf = date("d/m/Y H:i", strtotime($compra['fecha']));
 
-// --- DISEÑO DEL CONTENIDO HTML ---
-// Usamos tablas HTML para maquetar el PDF con precisión
+
 $html = '
     <table cellpadding="5">
         <tr>
@@ -99,7 +98,7 @@ $html = '
         </thead>
         <tbody>';
 
-        // Recorremos los ítems para llenar la tabla
+       
         foreach ($detalles as $det) {
             $subtotal_item = $det['cantidad'] * $det['precio_costo'];
             $html .= '
@@ -134,8 +133,8 @@ $html .= '
     </div>
 ';
 
-// 5. Escribimos el HTML en el PDF
+//Escribe el HTML en el PDF
 $pdf->writeHTML($html, true, false, true, false, '');
 
-// 6. Salida del PDF: "I" para mostrarlo en el navegador
+// Salida del PDF: "I" para mostrarlo en el navegador
 $pdf->Output('Orden_Compra_' . $compra['id'] . '.pdf', 'I');

@@ -3,19 +3,19 @@
     include '../config/conexion.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Limpiamos espacios en blanco de los extremos
+        // Limpia espacios en blanco de los extremos
         $nombre = trim($_POST['nombre']);
         $email = trim($_POST['email']);
         $password = $_POST['password'];
 
-        // 1. Doble seguridad: Validación por si se saltan el JavaScript del navegador
+        // Doble seguridad: Validación por si se saltan el JavaScript del navegador
         if (empty($nombre) || empty($email) || empty($password)) {
             header("Location: ../../register.php?error=campos_vacios");
             exit();
         }
 
         try {
-            // 2. Verificar si el correo electrónico ya está registrado
+            // Verificar si el correo electrónico ya está registrado
             $sql_check = "SELECT id FROM usuarios WHERE email = :email LIMIT 1";
             $stmt_check = $conn->prepare($sql_check);
             $stmt_check->execute([':email' => $email]);
@@ -27,13 +27,13 @@
                 exit();
             }
 
-            // 3. Encriptar la contraseña
+            // Encriptar la contraseña
             // Usamos PASSWORD_DEFAULT, que genera un hash seguro compatible con tu password_verify()
             $password_encriptada = password_hash($password, PASSWORD_DEFAULT);
 
-            // 4. Insertar el nuevo usuario en la base de datos
-            // Nota: Si tu columna 'rol' tiene un valor por defecto en la BD (ej. 'vendedor' o 'usuario'),
-            // podés quitarlo del INSERT. Si no, acá le asignamos uno por defecto.
+            // Insertar el nuevo usuario en la base de datos
+            // Nota: Si la columna 'rol' tiene un valor por defecto en la BD (ej. 'vendedor' o 'usuario'),
+            // podés quitarlo del INSERT. Si no, acá le asigna uno por defecto.
             $sql_insert = "INSERT INTO usuarios (nombre, email, password, rol) VALUES (:nombre, :email, :password, 'vendedor')";
             $stmt_insert = $conn->prepare($sql_insert);
             
@@ -44,7 +44,7 @@
             ]);
 
             if ($resultado) {
-                // Registro exitoso: mandamos al login con el parámetro success que lee tu JS
+                // Registro exitoso: manda al login con el parámetro success 
                 header("Location: ../../login.php?success=registrado");
                 exit();
             } else {
@@ -56,7 +56,7 @@
             echo "Error en el sistema: " . $e->getMessage();
         }
     } else {
-        // Si intentan acceder al archivo escribiendo la URL directa, los pateamos al registro
+        // Si intentan acceder al archivo escribiendo la URL directamente, lo envia directo al registro
         header("Location: ../../register.php");
         exit();
     }
