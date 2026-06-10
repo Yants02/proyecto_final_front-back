@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2026 a las 01:41:56
+-- Tiempo de generación: 10-06-2026 a las 23:39:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,8 +40,10 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `dni`, `nombre`, `email`, `usuario_id`) VALUES
-(3, 43977228, 'Juan Yotti', 'yottijuan2002@gmail.com', 4),
-(4, 43977228, 'Juan Yotti', 'yottijuan2002@gmail.com', 5);
+(1, 45928501, 'Germán Bisutti', 'gerbisu@gmail.com', 1),
+(2, 45654777, 'Juan Yottii', 'jy2002@gmail.com', 1),
+(3, 12365788, 'Jesús Ignacio García', 'jesusgarcxx@gmail.com', 1),
+(4, 38123456, 'Juan Román Riquelme', 'roman10@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -63,10 +65,10 @@ CREATE TABLE `compras` (
 --
 
 INSERT INTO `compras` (`id`, `id_proveedor`, `nombre_proveedor`, `fecha`, `total`, `usuario_id`) VALUES
-(33, 9, 'Arcorrrrr', '2026-05-28 18:21:43', 22000.00, NULL),
-(35, 2, 'arcor2', '2026-05-29 03:47:25', 10000.00, NULL),
-(40, 2, 'arcor2', '2026-06-01 02:03:10', 20000.00, NULL),
-(41, 2, 'arcor2', '2026-06-01 02:04:55', 100000.00, NULL);
+(1, 1, 'Arcor Oficial', '2026-05-31 18:04:33', 14000.00, 1),
+(2, 2, 'Coca-Cola FEMSA', '2026-06-01 18:04:33', 20000.00, 1),
+(3, 3, 'Distribuidora Tuti', '2026-06-03 18:04:33', 20000.00, 1),
+(4, 4, 'Pepsico Snacks', '2026-06-04 18:04:33', 23000.00, 1);
 
 -- --------------------------------------------------------
 
@@ -80,19 +82,20 @@ CREATE TABLE `detalle_compras` (
   `id_producto` int(11) DEFAULT NULL,
   `nombre_producto` varchar(100) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `precio_costo` decimal(10,2) NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL
+  `precio_costo` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `detalle_compras`
 --
 
-INSERT INTO `detalle_compras` (`id`, `id_compra`, `id_producto`, `nombre_producto`, `cantidad`, `precio_costo`, `usuario_id`) VALUES
-(19, 33, NULL, 'coca cola', 11, 2000.00, NULL),
-(21, 35, 8, 'harina', 100, 100.00, NULL),
-(26, 40, 12, 'Sprite 3 Litros', 100, 200.00, NULL),
-(27, 41, 7, 'coca', 100, 1000.00, NULL);
+INSERT INTO `detalle_compras` (`id`, `id_compra`, `id_producto`, `nombre_producto`, `cantidad`, `precio_costo`) VALUES
+(1, 1, 1, 'Galletitas Chocolinas 170g', 10, 400.00),
+(2, 1, 2, 'Caja Bon o Bon x 30 un.', 5, 2000.00),
+(3, 2, 11, 'Coca-Cola Sabor Original 1.5L', 20, 1000.00),
+(4, 3, 21, 'Yerba Playadito 1Kg', 10, 2000.00),
+(5, 4, 31, 'Papas Lays Clásicas 145g', 15, 1000.00),
+(6, 4, 32, 'Doritos Queso 100g', 10, 800.00);
 
 -- --------------------------------------------------------
 
@@ -115,17 +118,14 @@ CREATE TABLE `detalle_ventas` (
 --
 
 INSERT INTO `detalle_ventas` (`id`, `id_venta`, `id_producto`, `nombre_producto`, `cantidad`, `precio_venta`, `usuario_id`) VALUES
-(1, 1, 11, 'Coca Cola Zero 1.5 Litros', 2, 0.02, NULL),
-(2, 2, 11, 'Coca Cola Zero 1.5 Litros', 12, 2300.00, NULL),
-(3, 2, 8, 'harina', 10, 2000.00, NULL),
-(4, 2, 10, 'Sprite 3Litros', 1, 3500.00, NULL),
-(5, 3, NULL, 'coca cola', 11, 100.00, NULL),
-(6, 4, 10, 'Sprite 3Litros', 10, 3500.00, NULL),
-(7, 5, NULL, 'coca cola', 10, 100.00, NULL),
-(8, 6, NULL, 'coca cola', 70, 100.00, NULL),
-(9, 7, NULL, 'coca cola', 10, 100.00, NULL),
-(10, 8, NULL, 'cereal', 10, 100.00, NULL),
-(13, 11, NULL, 'chocolate', 51, 100.00, NULL);
+(1, 1, 11, 'Coca-Cola Sabor Original 1.5L', 2, 2200.00, 1),
+(2, 1, 31, 'Papas Lays Clásicas 145g', 1, 2100.00, 1),
+(3, 2, 1, 'Galletitas Chocolinas 170g', 1, 850.00, 1),
+(4, 2, 21, 'Yerba Playadito 1Kg', 1, 4500.00, 1),
+(5, 3, 17, 'Monster Energy 473ml', 2, 2100.00, 1),
+(6, 3, 4, 'Alfajor Blanco Simple', 3, 500.00, 1),
+(7, 4, 22, 'Yerba Taragüi 500g', 1, 2400.00, 1),
+(8, 4, 5, 'Alfajor Negro Simple', 2, 500.00, 1);
 
 -- --------------------------------------------------------
 
@@ -146,11 +146,46 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio_venta`, `stock`, `usuario_id`) VALUES
-(7, 'coca', 1200.00, 2, NULL),
-(8, 'harina', 2000.00, 18, NULL),
-(10, 'Sprite 3Litros', 3500.00, 25, NULL),
-(11, 'Coca Cola Zero 1.5 Litros', 2300.00, 40, 4),
-(12, 'Sprite 3 Litros', 4540.00, 25, 5);
+(1, 'Galletitas Chocolinas 170g', 850.00, 45, 1),
+(2, 'Caja Bon o Bon x 30 un.', 5400.00, 15, 1),
+(3, 'Caramelos Butter Toffees Bolsa', 1200.00, 25, 1),
+(4, 'Alfajor Blanco Simple', 500.00, 50, 1),
+(5, 'Alfajor Negro Simple', 500.00, 50, 1),
+(6, 'Gomitas Mogul Rollo', 400.00, 60, 1),
+(7, 'Rocklets Paquete Chico', 650.00, 40, 1),
+(8, 'Turrón de Maní', 250.00, 100, 1),
+(9, 'Chocolate Cofler Block 170g', 2800.00, 20, 1),
+(10, 'Menthoplus Menta Fuerte', 350.00, 70, 1),
+(11, 'Coca-Cola Sabor Original 1.5L', 2200.00, 36, 1),
+(12, 'Coca-Cola Sin Azúcar 1.5L', 2200.00, 24, 1),
+(13, 'Sprite Sabor Original 1.5L', 2000.00, 30, 1),
+(14, 'Fanta Naranja 1.5L', 2000.00, 20, 1),
+(15, 'Agua Mineral Kin 1.5L', 1100.00, 48, 1),
+(16, 'Powerade Mountain Blast 500ml', 1350.00, 30, 1),
+(17, 'Monster Energy 473ml', 2100.00, 40, 1),
+(18, 'Cepita Naranja 1L', 1500.00, 15, 1),
+(19, 'Aquarius Manzana 1.5L', 1600.00, 25, 1),
+(20, 'Schweppes Pomelo 1.5L', 1800.00, 12, 1),
+(21, 'Yerba Playadito 1Kg', 4500.00, 20, 1),
+(22, 'Yerba Taragüi 500g', 2400.00, 25, 1),
+(23, 'Azúcar Ledesma 1Kg', 1200.00, 40, 1),
+(24, 'Harina Blancaflor 0000 1Kg', 1100.00, 30, 1),
+(25, 'Fideos Matarazzo Mostachol', 1300.00, 35, 1),
+(26, 'Puré de Tomate Arcor 520g', 800.00, 50, 1),
+(27, 'Aceite Natura 900ml', 2500.00, 20, 1),
+(28, 'Leche Larga Vida La Serenísima', 1400.00, 60, 1),
+(29, 'Queso Rallado La Serenísima 130g', 1900.00, 15, 1),
+(30, 'Manteca La Serenísima 200g', 2200.00, 20, 1),
+(31, 'Papas Lays Clásicas 145g', 2100.00, 25, 1),
+(32, 'Doritos Queso 100g', 1800.00, 30, 1),
+(33, 'Cheetos Queso 90g', 1600.00, 20, 1),
+(34, 'Snack 3D 80g', 1500.00, 20, 1),
+(35, 'Galletitas Toddy Chispas', 1200.00, 40, 1),
+(36, 'Ruffles Sabor Jamón 120g', 2000.00, 15, 1),
+(37, 'Twistos Jamón Ibérico', 1100.00, 25, 1),
+(38, 'Pehuamar Palitos Salados', 900.00, 35, 1),
+(39, 'Maní Salado Pehuamar', 1000.00, 30, 1),
+(40, 'Papas Pay Lays 100g', 1700.00, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -172,9 +207,10 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`id`, `nombre`, `telefono`, `email`, `direccion`, `usuario_id`) VALUES
-(2, 'arcor2', '11392826', 'arcor2@gmail.com', 'calle 1234', NULL),
-(9, 'Arcorrrrr', '1198472630', 'arcorarg@gmail.com', 'calle 4321', 4),
-(10, 'Arcorrrrr', '1184927234', 'arcorarg@gmail.com', 'calle 3245', 4);
+(1, 'Arcor Oficial', '1144556677', 'ventas@arcor.com.ar', 'Av. Corrientes 1234', 1),
+(2, 'Coca-Cola FEMSA', '1122334455', 'pedidos@coca-cola.com.ar', 'Ruta 9 Km 30', 1),
+(3, 'Distribuidora Tuti', '1166778899', 'contacto@distribuidoratuti.com', 'Calle Falsa 123', 1),
+(4, 'Pepsico Snacks', '1188990011', 'ventas@pepsico.com.ar', 'Parque Industrial 5', 1);
 
 -- --------------------------------------------------------
 
@@ -196,14 +232,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol`, `created_at`) VALUES
-(1, 'Juan Yotti', 'jy2002@gmail.com', '20enero02', 'administrador', '2026-04-22 20:46:12'),
-(2, 'Pablo Yotti', 'pabloyotti@gmail.com', '$2y$10$9U.pdIdaYk0B1B5GiE6YyO9dxsNeJYKNIU7bzMYBigKFAoDqxmO76', 'ventas', '2026-04-22 20:52:17'),
-(4, 'Juan Yotti', 'yottijuan2002@gmail.com', '$2y$10$ZcD5Eq.B0iiZikdPY8PqSeze8tCHRj1D9yGuIqp6adnuFblhvf1J2', 'administrador', '2026-05-18 20:48:02'),
-(5, 'Belen Yotti', 'belyotti@gmail.com', '$2y$10$prmuRgL0epLXqVzNkFmxcuToScXM6OD/CZJKUokw7qC8I72JYi5K.', 'ventas', '2026-05-18 20:53:39'),
-(6, 'Lionel Messi', 'LM10@gmail.com', '$2y$10$.M9x.XM56buYDmk51iNYTuASIk.lsoH0Ni8eD6xPRBDK6HwMoLUEm', 'administrador', '2026-05-26 22:13:06'),
-(8, 'usuario prueba 1', 'user1@gmail.com', '$2y$10$rB0zndgbyVOCc/N2xQk5a.RFr4AM5z7O5qvO3cYyQI9aP8lSrzd7G', 'administrador', '2026-06-01 19:17:39'),
-(9, 'admin', 'admin@gmail.com', '$2y$10$Sb8lde7xyqYMGpJ2Miak7uGkEyLdZxeY9KLrZmO4SRAmER28i8dhO', 'administrador', '2026-06-01 19:54:34'),
-(10, 'ventas', 'ventas@gmail.com', '$2y$10$jVBt38zMB7GQ.2E5KUi8CunYwfDd9pRMabOXyKLWZpJxyoXiFfYEe', 'ventas', '2026-06-01 19:56:48');
+(1, 'Maria Del Carmen Acri', 'm.acri@bue.edu.ar', '$2y$10$pVvL4Fj3PbQraNOkZhDoTu/r7NDLY1l05Sk9O6/XFRelpEpN0Bu/u', 'administrador', '2026-06-05 17:50:07'),
+(3, 'Ventas', 'ventas@gmail.com', '$2y$10$y8yDYnSPiMXqhZYcL9nhxe3q3DdwuS6vvh1CJ.Nf/ev2kcR1Hlvz.', 'ventas', '2026-06-05 18:08:09');
 
 -- --------------------------------------------------------
 
@@ -225,15 +255,10 @@ CREATE TABLE `ventas` (
 --
 
 INSERT INTO `ventas` (`id`, `id_cliente`, `nombre_cliente`, `fecha`, `total`, `usuario_id`) VALUES
-(1, 4, 'Juan Yotti', '2026-05-28 03:26:33', 0.04, NULL),
-(2, NULL, 'Jesús Ignacio', '2026-05-29 02:41:41', 51100.00, NULL),
-(3, 3, 'Juan Yotti', '2026-05-29 03:07:19', 1100.00, NULL),
-(4, 4, 'Juan Yotti', '2026-05-29 03:09:09', 35000.00, NULL),
-(5, 3, 'Juan Yotti', '2026-05-29 03:13:01', 1000.00, NULL),
-(6, 3, 'Juan Yotti', '2026-05-29 03:13:49', 7000.00, NULL),
-(7, 3, 'Juan Yotti', '2026-05-29 03:21:38', 1000.00, NULL),
-(8, NULL, 'Jesús Ignacio', '2026-05-29 04:03:30', 1000.00, NULL),
-(11, 3, 'Juan Yotti', '2026-06-01 02:06:48', 5100.00, NULL);
+(1, 1, 'Germán Bisutti', '2026-06-02 18:04:33', 6500.00, 1),
+(2, 2, 'Juan Yottii', '2026-06-03 18:04:33', 5350.00, 1),
+(3, 3, 'Jesús Ignacio García', '2026-06-04 18:04:33', 5700.00, 1),
+(4, 4, 'Juan Román Riquelme', '2026-06-05 18:04:33', 3400.00, 1);
 
 --
 -- Índices para tablas volcadas
@@ -244,15 +269,16 @@ INSERT INTO `ventas` (`id`, `id_cliente`, `nombre_cliente`, `fecha`, `total`, `u
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD UNIQUE KEY `dni` (`dni`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `fk_clientes_usuarios` (`usuario_id`);
 
 --
 -- Indices de la tabla `compras`
 --
 ALTER TABLE `compras`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_proveedor` (`id_proveedor`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD KEY `id_proveedor` (`id_proveedor`);
 
 --
 -- Indices de la tabla `detalle_compras`
@@ -260,8 +286,7 @@ ALTER TABLE `compras`
 ALTER TABLE `detalle_compras`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_compra` (`id_compra`),
-  ADD KEY `id_producto` (`id_producto`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD KEY `id_producto` (`id_producto`);
 
 --
 -- Indices de la tabla `detalle_ventas`
@@ -277,15 +302,14 @@ ALTER TABLE `detalle_ventas`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `usuario_id_2` (`usuario_id`);
+  ADD KEY `fk_productos_usuarios` (`usuario_id`);
 
 --
 -- Indices de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD KEY `fk_proveedores_usuarios` (`usuario_id`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -310,49 +334,49 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_compras`
 --
 ALTER TABLE `detalle_compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_ventas`
 --
 ALTER TABLE `detalle_ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
@@ -368,24 +392,14 @@ ALTER TABLE `clientes`
 -- Filtros para la tabla `compras`
 --
 ALTER TABLE `compras`
-  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_compras_usuarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `compras_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`) ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `detalle_compras`
 --
 ALTER TABLE `detalle_compras`
   ADD CONSTRAINT `detalle_compras_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compras` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `detalle_compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_detalle_compras_usuarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `detalle_ventas`
---
-ALTER TABLE `detalle_ventas`
-  ADD CONSTRAINT `detalle_ventas_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `detalle_ventas_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_detalle_ventas_usuarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detalle_compras_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `productos`
@@ -398,13 +412,6 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `proveedores`
   ADD CONSTRAINT `fk_proveedores_usuarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `ventas`
---
-ALTER TABLE `ventas`
-  ADD CONSTRAINT `fk_ventas_usuarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
