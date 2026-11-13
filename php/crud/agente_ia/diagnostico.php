@@ -33,6 +33,8 @@ function diag_llamar(array $config, string $metodo, string $ruta, ?array $cuerpo
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_TIMEOUT => 30,
+        CURLOPT_SSL_VERIFYPEER => false, // Desactivar temporalmente verificación SSL
+        CURLOPT_SSL_VERIFYHOST => 0,   // Desactivar verificación de host
         CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'x-goog-api-key: ' . $config['api_key']],
     ];
     if ($metodo === 'POST') {

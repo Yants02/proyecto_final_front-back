@@ -10,9 +10,7 @@
  */
 
 /** Error con un mensaje apto para mostrarle al usuario. El detalle técnico va al log. */
-class GeminiError extends RuntimeException
-{
-}
+class GeminiError extends RuntimeException {}
 
 /** Devuelve la configuración, o null si falta el archivo o la API key. */
 function gemini_cargar_config(): ?array
@@ -48,6 +46,8 @@ function gemini_post(array $config, array $cuerpo): array
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_TIMEOUT => 40,
+        CURLOPT_SSL_VERIFYPEER => false, // Desactivar temporalmente verificación SSL
+        CURLOPT_SSL_VERIFYHOST => 0,   // Desactivar verificación de host
         // La key va en un header (no en la URL) para que no quede en logs.
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/json',
