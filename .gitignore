@@ -1,0 +1,13 @@
+# Archivos de configuración con credenciales o claves secretas
+php/config/gemini.php
+.env
+
+# Dependencias o carpetas del sistema
+# vendor/
+# node_modules/
+
+# # Archivos temporales o de logs de XAMPP/PHP
+# *.log
+# *.tmp
+# .DS_Store
+# Thumbs.db
